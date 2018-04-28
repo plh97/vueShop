@@ -1,0 +1,31 @@
+@mixin dpr-fz($font-size) {
+    // 由于设计稿默认按照2倍像素设计的
+    // 设计图默认1倍*0.5
+    font-size: $font-size / 2;
+    // 设计图默认2倍*1
+    [data-dpr="2"] & {
+        font-size: $font-size;
+    }
+    // 设计图默认2倍*1.5
+    [data-dpr="3"] & {
+        font-size: $font-size * 1.5;
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@mixin dpr-bk-img($url,$name,$type:"png"){
+    background-image: url($url+ $name+"@2x."+$type);
+    [data-dpr="3"] &{background-image: url($url + $name+"@3x."+$type)}
+}
+
