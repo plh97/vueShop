@@ -1,0 +1,38 @@
+.toggle{
+    transform: translateY(-100%);
+    .sortList{
+        background: #fff;
+        display: flex;
+        padding-top: 0.3rem;
+        position: relative;
+        z-index: 3;
+        p{
+            padding: 0 0.3rem;
+            text-align: center;
+            @include dpr-fz(26px);
+        }
+        ul{
+            flex: 1;
+            li{
+                width: 1.92rem;
+                height: 0.8rem;
+                @include flex-center();
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: center;
+                margin: 0 0.32rem 0.32rem 0;
+                color: #666;
+                background: #eee;
+                float: left;
+                border-radius: 5px;
+                @include dpr-fz(26px);
+                &.active{
+                    background: $fst-red;
+                    color: #eee;
+                }
+            }
+        }
+    }
+        
+}

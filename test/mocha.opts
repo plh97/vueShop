@@ -1,0 +1,4 @@
+./test/test.js
+--require babel-polyfill 
+--require babel-register
+-w
