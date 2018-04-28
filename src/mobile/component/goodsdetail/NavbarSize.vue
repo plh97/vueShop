@@ -211,7 +211,10 @@ export default {
           num: this.num
         }))
       }
+<<<<<<< HEAD
       this.message(`添加${this.num}件商品成功~！`);
+=======
+>>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
       store.commit('sync','selectList')
       store.state.showWhat = '';
       document.body.style.overflow = 'scroll';

@@ -295,9 +295,12 @@ export default {
 			line-height: (79rem/75);
 			text-align: center;
 			display: inherit;
+<<<<<<< HEAD
 			svg {
 				@include dpr-fz(28px);
 			}
+=======
+>>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
 		}
 	}
 	.foot-text{

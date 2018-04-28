@@ -149,12 +149,21 @@ export default {
     background-color: #fff;
     justify-content: space-between;
     @include dpr-fz(28px);
+<<<<<<< HEAD
 
     span {
 			svg {
 		    @include dpr-fz(28px);
 				width: 0.1rem;
 			}
+=======
+    
+    .title {
+			@include dpr-fz(38px);
+    }
+    .option{
+			width: (86rem/75);
+>>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
     }
 	}
 
