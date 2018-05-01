@@ -24,7 +24,7 @@ const Upload = async (ctx, next) => {
       stream.on('finish', async () => {
         resolve({
           name,
-          url: `http://localhost:9090/public/${name}`,
+          url: `http://pipk.top:9090/public/${name}`,
         });
       });
     });
