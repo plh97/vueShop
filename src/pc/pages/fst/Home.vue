@@ -1,18 +1,43 @@
 <template>
 	<div class="content">
-		<h1>fst pc 的首页内容</h1>
-		<ul class="container">
-			<li v-for="arr in $store.state.fst">
-				<img :src="`http://kingubo.com/daocheng/${arr.goods_image}`">
-				<span>{{arr.goods_name}}</span>
-			</li>
-		</ul>
+		<audio controls type="audio/ogg" :src='require("../../../assets/mp3/bv.mp3")'></audio>
+		<span class="pre">pre</span>
 	</div>
 </template>
 
 <script>
+import axios from 'axios';
 import store from '../../store';
-export default {store};
+export default {
+	store,
+	mounted(e){
+		const audioDOM = this.$el.children[0];
+		this.init();
+	},
+	methods:{
+		init(){
+			//创建音频上下文
+			var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+			var source;
+			var oscillator = audioCtx.createOscillator();
+			var filter = audioCtx.createBiquadFilter();
+
+			axios.get('bv.mp3',{
+				responseType: 'arraybuffer',
+			}).then(res=>{
+				console.log(res.data);
+				audioCtx.decodeAudioData(res.data, function(buffer) {
+					source.buffer = buffer;
+
+					source.connect(audioCtx.destination);
+					source.loop = true;
+				});
+			})
+		}
+	}
+};
+
+
 </script>
 
 <style lang="scss" scoped>

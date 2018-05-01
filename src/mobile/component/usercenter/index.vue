@@ -1,13 +1,13 @@
 <template>
 	<div class="usercenter">
-        <div class="user-header">
-            <div class="header-set">
+		<div class="user-header">
+			<div class="header-set">
 				<router-link tag="span" :to="`/${company}/vipcard`">
 					<svg class="icon" aria-hidden="true">
 						<use xlink:href="#icon-erweima"></use>
 					</svg> 
 				</router-link>
-				 <svg class="icon" aria-hidden="true">
+				<svg class="icon" aria-hidden="true">
 					<use xlink:href="#icon-tuichu1"></use>
 				</svg>  
 			</div>
@@ -142,10 +142,6 @@ export default {
 	},
 };
 </script>
-
-
-
-
 
 <style  lang="scss">
 @import "~@/assets/common/dpr.scss";

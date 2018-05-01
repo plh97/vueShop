@@ -43,17 +43,15 @@
         @add="add"
         @reduce="reduce"
         :value='num'
+        :index='num'
       />
     </form>
-
     <footer>
       <span @click="addToShopCar">加入购物车</span>
       <span>立即购买</span>
     </footer>
   </div>
 </template>
-
-
 
 <style lang="scss" scoped>
 @import '~@/assets/common/dpr.scss';
@@ -161,17 +159,11 @@
 }
 </style>
 
-
 <script>
 import store from '@/mobile/store';
 import router from '@/mobile/router';
-import InputNum from './InputNum.vue';
-
 export default {
   store,
-  components:{
-    InputNum
-  },
   props: {
     goodInfo: {
       type: Object,
@@ -201,7 +193,7 @@ export default {
       document.body.style.overflow = 'hidden';
     },
     addToShopCar(){
-      const isExist = store.state.selectList.find(arr=> arr.id === this.goodInfo.id);
+      const isExist = store.state.selectList.find(arr=> arr.goods_name === this.goodInfo.goods_name);
       if(isExist){
         // +1
         isExist.num += this.num;
@@ -211,10 +203,7 @@ export default {
           num: this.num
         }))
       }
-<<<<<<< HEAD
       this.message(`添加${this.num}件商品成功~！`);
-=======
->>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
       store.commit('sync','selectList')
       store.state.showWhat = '';
       document.body.style.overflow = 'scroll';

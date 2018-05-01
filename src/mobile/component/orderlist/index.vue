@@ -3,19 +3,21 @@
 		<v-Header title="我的订单" backto="usercenter"/>
 		<ul class="header">
       <router-link tag="li"  :to="`/${company}/orderlist/all`" exact>
-          全部
+        全部
       </router-link>
       <router-link tag="li" :to="`/${company}/orderlist/being`">
-          待付款
+        待付款
       </router-link>
       <router-link tag="li" :to="`/${company}/orderlist/took`">
-          待收货
+        待收货
       </router-link>
       <router-link tag="li" :to="`/${company}/orderlist/return`">
-          已退货
+        已退货
       </router-link>
 		</ul>
-		<router-view/>
+		<transition name="fade1">
+			<router-view></router-view>
+		</transition>
 	</div>
 </template>
 <script>

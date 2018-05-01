@@ -8,7 +8,7 @@ const devWebpack = require('./build/webpack.dev');
 const prodWebpack = require('./build/webpack.prod');
 
 // 加载项目配置文件
-// const pcConfig = require('./build/device/webpack.pc');
+const pcConfig = require('./build/device/webpack.pc');
 const mobileConfig = require('./build/device/webpack.mobile');
 
 module.exports = env => [

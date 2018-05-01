@@ -33,7 +33,7 @@
 				:data-id="list.id"
 				tag="li"
 				v-for="(list,i) in good_list"
-				:to="`/${company}/goodsdetail?goodId=${list.goods_code}`"
+				:to="`/${company}/goodsdetail?goodId=${list.id}`"
 			>
 				<img :src="list.goods_image" :onerror="defaultImg">
 				<div class="goods-detail">
@@ -41,7 +41,6 @@
 					<p>13.5%vol干型红酒...</p>
 					<p class="price">
 						{{list.retail_price | currency}}
-
 					</p>
 				</div>
 			</router-link>
@@ -56,8 +55,6 @@
 @import '~@/assets/common/mobile.scss';
 @import '~@/assets/common/color.scss';
 @import './sell.scss';
-
-
 
 .sell {
 	overflow: hidden;
@@ -163,7 +160,6 @@
 <script>
 import store from '@/mobile/store';
 import domjs from '@/assets/common/dom';//金额格式化
-import index from 'vue';
 const {
 	getPath,
 	isIdInPathFunc,
@@ -176,7 +172,6 @@ const {
 				company: store.state.company,
 				title:[],
 				act:null,
-				numberFormat:domjs.numberFormat//金额格式化
 			}
 		},
 		computed: {
@@ -185,15 +180,8 @@ const {
 		},
 		mounted() {
 			this.source_list = store.state.list
-
 			this.good_list = this.source_list
 			this.getti()
-			this.act = "all"
-		},
-		updated() {
-			this.source_list = store.state.list
-
-			this.good_list = this.source_list
 			this.act = "all"
 		},
 		created() {

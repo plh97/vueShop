@@ -2,21 +2,21 @@
   <div class="avator">
     <header class="header">
       <router-link fst tag="span" :to="`/${company}/message`">
-          <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-jiantou-copy"></use>
-          </svg>
-          返回
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-jiantou-copy"></use>
+        </svg>
+        返回
       </router-link>
       <span class="option" @click="toggle">···</span>
     </header>
     <img class="avator-img" src="@/assets/images/lufa/autoPhoto.jpg" alt="">
     <div class="mask" v-show="isShow">
       <div class="btn-able" id="btn-able">
-          <button class="local-photo" @click="upload()">本地相册</button>
-          <button class="take-photo"  @click="init_camera()">拍照</button>
+        <button class="local-photo" @click="upload">本地相册</button>
+        <button class="take-photo"  @click="init_camera">拍照</button>
       </div>
       <div class="btn-disable" id="btn-disable">
-          <button class="cancel" @click="toggle">取消</button>
+        <button class="cancel" @click="toggle">取消</button>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@ export default {
       input_upload.click();
       input_upload.addEventListener("change", e => {
         let url = "${ctx}" + "/file/upload";
-        ajax_upload_image(e, url);
+        this.ajax_upload_image(e, url);
       });
     },
     init_camera() {
@@ -66,7 +66,7 @@ export default {
       input_upload.click();
       input_upload.addEventListener("change", e => {
         let url = "${ctx}" + "/file/upload";
-        ajax_upload_image(e, url);
+        this.ajax_upload_image(e, url);
       });
     },
 
@@ -75,34 +75,14 @@ export default {
       let file = e.path[0].files[0];
       let formData = new FormData();
       formData.append("file", file);
-      $.ajax({
-        url: ctx + "/file/upload",
-        type: "POST",
-        contentType: "multipart/form-data",
-        dataType: "JSON",
-        async: false,
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(obj) {
-          let image_url = ctx.replace(/\/a/, "/") + obj.files[0].url;
-          document.getElementById("aisle").style.display = "none";
-          var mall_domain = "${mall_domain}";
-          let updateAvator =
-            mall_domain +
-            "/updateAvator?user_id=${user_id}" +
-            "&photo=" +
-            image_url;
-          fetch(updateAvator, {
-            method: "GET"
-          })
-            .then(res => res.json())
-            .then(json => {
-              console.log(json, image_url);
-              document.getElementById("append_image").src = image_url;
-            });
-        }
-      });
+      this.$ajax({
+        method: 'post',
+        url: '/upload',
+        data: formData
+      }).then(res=>{
+        console.log('上传图片成功',res.data);
+        this.$el.querySelector('img').src = res.data[0].url;
+      })
     }
   }
 };

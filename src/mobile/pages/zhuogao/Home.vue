@@ -45,7 +45,7 @@
 		<div class="content">
 			<h3>卓搞家族</h3>
 			<ul class="container">
-    		    <router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.goods_code}`">
+    		    <router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<!-- <img :src="`http://kingubo.com/daocheng/${arr.goods_image}`"> -->
 					<div class="list-news">
@@ -65,7 +65,7 @@
 		<div class="content">
 			<h3>法塞特家族</h3>
 			<ul class="container">
-				<router-link  v-for="(arr,i) in home1" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.goods_code}`">
+				<router-link  v-for="(arr,i) in home1" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>

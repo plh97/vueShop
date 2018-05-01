@@ -1,5 +1,5 @@
 <template>
-	<div class="goodslist" >
+	<div class="home" >
 		<div class="header" :class="{srcollTop:searchBarFixed}">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-saoma"></use>
@@ -31,8 +31,8 @@
 						</svg>
 					</div>
 					<div class="text-box">
-            <h1>新品首发</h1>
-            <p>精品妆品全新上市</p>
+						<p class="title">新品首发</p>
+            <p class="context">精品妆品全新上市</p>
           </div>
 				</li>
 				<li>
@@ -42,8 +42,8 @@
 						</svg>
 					</div>
 					<div class="text-box">
-            <h1>新品首发</h1>
-            <p>精品妆品全新上市</p>
+						<p class="title">新品首发</p>
+            <p class="context">精品妆品全新上市</p>
           </div>
 				</li>
 				<li>
@@ -53,8 +53,8 @@
 						</svg>
 					</div>
 					<div class="text-box">
-            <h1>今日专题</h1>
-            <p>不能错过的化妆品</p>
+						<p class="title">今日专题</p>
+            <p class="context">不能错过的化妆品</p>
           </div>
 				</li>
 				<li>
@@ -64,8 +64,8 @@
 						</svg>
 					</div>
 					<div class="text-box">
-            <h1>达人美妆</h1>
-            <p>达人手把手教你化妆</p>
+						<p class="title">达人美妆</p>
+            <p class="context">达人手把手教你化妆</p>
           </div>
 				</li>
 			</ul>
@@ -76,7 +76,7 @@
         <svg class="icon" aria-hidden="true">
 					<use xlink:href="#icon-add-circle"></use>
 				</svg>
-				<h3>&nbsp;唯/美/热/门/分/类</h3>
+				<p>&nbsp;唯/美/热/门/分/类</p>
         <svg class="icon" aria-hidden="true">
 					<use xlink:href="#icon-add-circle"></use>
 				</svg>
@@ -107,7 +107,7 @@
 		<div class="content">
 			<h3>鹭发商贸</h3>
 			<ul class="container">
-        <router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.goods_code}`">
+        <router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 				<!-- <li v-for="(arr,i) in home" :key='i'> -->
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
@@ -127,7 +127,7 @@
 		<div class="content">
 			<h3>眉彩飞扬</h3>
 			<ul class="container">
-				<router-link  v-for="(arr,i) in home1" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.goods_code}`">
+				<router-link  v-for="(arr,i) in home1" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
@@ -218,8 +218,9 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import '~@/assets/common/dpr.scss';
-.goodslist{
+.home {
 	background: #F5F5F5;
+	
 	.header{
 		@include flex-center();
 		z-index: 3;
@@ -237,10 +238,10 @@ export default {
 		input{
 			text-align: center;
 			width: (520rem/75);
-      		height: (50rem/75);
+			height: (50rem/75);
 			@include dpr-fz(28px);
 			color: #fff;
-		  	border-radius: (20rem/75);
+			border-radius: (20rem/75);
 			background-color: rgba(255, 255, 255, 0.5);
 			outline: none;
 			border: none;
@@ -270,7 +271,7 @@ export default {
 	}
 	.mint-swipe{
 		height: (400rem/75);
-		// margin-top:  (80rem/75);
+		margin-top: 0;
 		width: 100vw;
 		img {
 			width: 100%;
@@ -301,11 +302,16 @@ export default {
           margin: 0 0.4rem; 
         }
         .text-box{
-          h1{
+
+          .title {
+						height: 0.6rem;
             color: #333;
             font-weight:600;
             @include dpr-fz(30px);
-          }
+					}
+					.context {
+						height: 0.3rem;
+					}
         }
         svg.icon{
           @include dpr-fz(70px);
@@ -333,10 +339,12 @@ export default {
       justify-content: center;
       align-items: center;
       color: #FF3267;
+			height: (100rem/75);
+			
       svg{
 				@include dpr-fz(16px);
       }
-      h3{
+      p{
 				@include dpr-fz(32px);
         letter-spacing: 0.2rem;
       }

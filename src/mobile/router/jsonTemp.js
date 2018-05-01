@@ -153,10 +153,6 @@ const jsonTemp = ({ company }) => {
         path: `/${company}/modifypwd`,
         component: Modifypwd
       },
-<<<<<<< HEAD
-=======
-
->>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
       {
         path: `/${company}/login`,
         component: Login

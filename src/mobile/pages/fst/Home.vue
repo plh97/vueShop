@@ -1,5 +1,5 @@
 <template>
-	<div class="goodslist">
+	<div class="home">
 		<div class="header">
 			<span class="logo"><img src="@/assets/images/fst/logo.png"></span>
 		   <input type="text"  placeholder="请输入商品名称" id="search">
@@ -45,7 +45,7 @@
 		<div class="content">
 			<h3>法塞特家族</h3>
 			<ul class="container">
-				<router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.goods_code}`">
+				<router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
@@ -64,7 +64,7 @@
 		<div class="content">
 			<h3>法塞特家族</h3>
 			<ul class="container">
-				<router-link  v-for="(arr,i) in home1" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.goods_code}`">
+				<router-link  v-for="(arr,i) in home1" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
@@ -129,18 +129,10 @@ export default {
 
 </script>
 
-<style lang="scss">
-.mint-swipe-indicators {
-	.mint-swipe-indicator {
-		width:0.2rem;
-		height:0.2rem;
-		margin: 0 0.1rem;
-	}
-}
-</style>
+
 <style lang="scss" scoped>
 @import '~@/assets/common/dpr.scss';
-.goodslist{
+.home {
 	background: #F5F5F5;
 	margin-bottom: 1.3333rem;
 
@@ -182,13 +174,6 @@ export default {
 		img{
 			width: 100%;
 			height: 100%;
-		}
-	}
-	.mint-swipe{
-		height: (400rem/75);
-		margin-top:  (80rem/75);
-		img {
-			width: 100%;
 		}
 	}
     .head-nav{
@@ -295,12 +280,9 @@ export default {
 			line-height: (79rem/75);
 			text-align: center;
 			display: inherit;
-<<<<<<< HEAD
 			svg {
 				@include dpr-fz(28px);
 			}
-=======
->>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
 		}
 	}
 	.foot-text{

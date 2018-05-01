@@ -23,40 +23,44 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_module/,
-        loader: 'babel-loader'
-        // include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
-      },
-      {
-        test: /\.(scss|css)$/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'sass-loader'],
-          fallback: 'vue-style-loader'
-        })
-      }, {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            outputPath: './images',
-            name: '[name].[ext]'
-          }
-        }]
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader'
-        ]
-      }
-    ]
+    rules: [{
+      test: /\.vue$/,
+      loader: 'vue-loader',
+      options: vueLoaderConfig
+    }, {
+      test: /\.js$/,
+      exclude: /node_module/,
+      loader: 'babel-loader'
+      // include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+    }, {
+      test: /\.(scss|css)$/,
+      use: ExtractTextPlugin.extract({
+        use: ['css-loader', 'sass-loader'],
+        fallback: 'vue-style-loader'
+      })
+    }, {
+      test: /\.(png|svg|jpg|gif)$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          outputPath: './images',
+          name: '[name].[ext]'
+        }
+      }],
+    }, {
+      test: /\.mp3$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          outputPath: './mp3',
+          name: '[name].[ext]'
+        }
+      }],
+    }, {
+      test: /\.(woff|woff2|eot|ttf|otf)$/,
+      use: [
+        'file-loader'
+      ]
+    }]
   }
 };

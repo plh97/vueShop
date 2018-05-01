@@ -112,6 +112,7 @@
           flex-direction: column;
           // align-items: flex-start;
           align-items: stretch;
+          flex: 1;
 
           .fir {
             @include dpr-fz(28px);
@@ -211,7 +212,7 @@ export default {
       }
     },
     add(){
-      const isExist = store.state.selectList.find(arr=> arr.id === this.goodInfo.id);
+      const isExist = store.state.selectList.find(arr=> arr.goods_name === this.goodInfo.goods_name);
       if(isExist) {
         // +1
         isExist.num +=1

@@ -1,16 +1,18 @@
 <template>
 	<div class="shopcar">
     <h3>
-        <span class="option"></span>
-				<span class="title">购物车</span>
-				<span class="option">删除</span>
+      <span class="option"></span>
+      <span class="title">购物车</span>
+      <span class="option">删除</span>
     </h3>
-    <ul class="content">
-      <li v-for="(item,i) in selectList" :key="i">
-        <div class="opt">
-          <input class="magic-radio" type="checkbox" name="radio" id="r1" value="option1">
-          <label for="r1"></label>
-        </div>
+    <div class="content">
+      <v-label
+        :key="i"
+        :id="i"
+        class="left-part"
+        v-model="selected"
+        v-for="(item,i) in $store.state.selectList"
+      >
         <img class="good-img" :src="item.goods_image" :onerror="defaultImg" >
         <div class="right-part">
           <div class="good-name">{{item.goods_name}}</div>
@@ -19,27 +21,32 @@
             <span>{{item.goods_type_name}}</span>
           </div>
           <div class="good-price-nums">
-            <span class="good-price">{{item.retail_price}}</span>
-            <div>{{item.num}}</div>
+            <span class="good-price">{{item.retail_price * item.num | currency}}</span>
+            <InputNum 
+              @add="add"
+              @reduce="reduce"
+              :value='item.num'
+              :index='i'
+            />
           </div>
         </div>
-      </li>
-    </ul>
+      </v-label>
+    </div>
     <div class="balance-bar">
-      <div class="left-part">
-        <div class="opt">
-          <input class="magic-radio" type="checkbox" name="radio" id="r" value="option">
-          <label for="r">全选</label>
-        </div>
-      </div>
+      <label class="left-part" for="all">
+        <input @click="selectAll" type="checkbox" name="radio" id="all" value="true"/>
+        全选
+      </label>
       <div class="account">
         <div class="total-tips">
           <div class="total">合计：</div>
           <div class="tips">不含运费</div>
         </div>
-        <span class="sum">￥5,800.00 </span>
+        <span class="sum">
+          {{totalPrice | currency}}
+        </span>
       </div>
-      <div class="btn-account" @click="toPay()">去结算</div>
+      <div class="btn-account" @click="toPay">去结算</div>
     </div>
 		<v-Footer/>
 	</div>
@@ -48,17 +55,57 @@
 <script>
 import store from '@/mobile/store';
 export default {
+  store,
   data(){
-    return{
+    return {
       store,
-      selectList: store.state.selectList,
+      selected: [],
+    }
+  },
+  watch: {
+    // 如果 `selected` 发生改变，这个函数就会运行
+    selected: function (next, pre ) {
+      if(next.length===4) {
+        // 点击全选
+        this.$el.querySelector('.balance-bar .left-part input').checked = true;
+      } else {
+        this.$el.querySelector('.balance-bar .left-part input').checked = false;
+      }
     }
   },
   computed: {
     defaultImg: () => store.state.defaultImg,
+    totalPrice: function(e) {
+      return store.state.selectList
+        .filter((arr,i)=> this.selected.indexOf(i) >= 0)
+        .reduce((total , arr) => total + arr.num * arr.retail_price , 0)
+    } 
   },
   methods: {
+    add(num) {
+      store.state.selectList[num].num += 1;
+      store.commit('sync','selectList')
+    },
+    reduce(num){
+      if (store.state.selectList[num].num === 1) return
+      store.state.selectList[num].num -= 1;
+      store.commit('sync','selectList')
+    },
+    selectAll(e,a) {
+      if(e.target.checked){
+        // 选中的，再点
+        [...this.$el.querySelectorAll(`.content input[type=checkbox]:not(:checked)`)]
+          .forEach(dom => dom.click());
+        this.selected = [...this.$el.querySelectorAll(`.content input[type=checkbox]`)]
+          .map(dom=>dom.id);
+      } else {
+        [...this.$el.querySelectorAll(`.content input[type=checkbox]:checked`)]
+          .forEach(dom => dom.click());
+        this.selected = [];
+      }
+    },
     toPay() {
+
     }
   }
 }
@@ -68,25 +115,19 @@ export default {
 @import "~@/assets/common/common.scss";
 @import "~@/assets/common/dpr.scss";
 //checkbox样式
-.opt {
-  height: (40rem/75);
-  margin: (30rem/75) 0;
   .magic-radio {
     position: absolute;
     display: none;
   }
-  .magic-radio + label {
-    position: relative;
-    display: block;
-    padding-left: 30px;
+  .magic-radio + span {
+    display: inline-block;
     @include flex-center();
     @include dpr-fz(28px);
     color: #999;
+    margin: 10px;
+    position: relative;
   }
-  .magic-radio + label:before {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .magic-radio + span:before {
     display: inline-block;
     width: (36rem/75);
     height: (36rem/75);
@@ -94,7 +135,7 @@ export default {
     border: 0.02rem solid #c0c0c0;
     border-radius: 50%;
   }
-  .magic-radio + label:after {
+  .magic-radio + span:after {
     position: absolute;
     display: none;
     content: "";
@@ -105,13 +146,13 @@ export default {
     border-radius: 50%;
     background: #e63131;
   }
-  .magic-radio:checked + label:before {
+  .magic-radio:checked + span:before {
     border: 0.02rem solid #e63131;
   }
-  .magic-radio:checked + label:after {
+  .magic-radio:checked + span:after {
     display: block;
   }
-}
+
 .shopcar {
   height: 100vh;
   width: 100vw;
@@ -136,30 +177,51 @@ export default {
   .content {
     height: calc(100vh - 275rem/75);
     overflow-y: scroll;
-    li{
+    
+
+    label {
       display: flex;
       justify-content: space-around;
       align-items: center;
       background: #FFF;
+      height: (240rem/75);
       
-      img{
+      img {
         display: block;
-        width: (150rem/75);
-        height: (150rem/75);
+        width: (200rem/75);
+        height: (200rem/75);
         border-radius: 0.2rem;
         border: 0.02rem solid #EEE;
       }
-      .right-part{
+      .right-part {
         width: (450rem/75);
-        .good-name{
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+
+        .good-name {
+          flex: 5;
           color: #333;
-          @include dpr-fz(32px);
+          @include dpr-fz(28px);
         }
-        .good-info{
+
+        .good-info {
+          flex: 3;
           span{
             @include dpr-fz(24px);
             color: #999;
             margin-right: (45rem/75);
+          }
+        }
+        .good-price-nums {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          .good-price {
+            color: #B84747;
+            @include dpr-fz(28px);
           }
         }
       }
@@ -172,11 +234,14 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .left-part {
       width: (160rem/75);
       height: 100%;
       padding-left: 0.2rem;
+      @include flex-center();
     }
+
     .account {
       width: (400rem/75);
       height: 100%;
@@ -198,7 +263,6 @@ export default {
       }
       .sum{
         flex: 3;
-        // width: 2rem;
         text-align: center;
         @include dpr-fz(28px);
         color: #b84747;

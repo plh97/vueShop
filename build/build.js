@@ -14,6 +14,7 @@ const allRouter = require('./api/index.js');
 
 // application
 const app = new Koa();
+const static = new Koa();
 // const router = new Router();
 const port = process.env.PORT || config.port;
 const server = http.createServer(app.callback());
@@ -39,4 +40,15 @@ app
 server.listen(port, () => {
   console.log(` >>> port: ${port}`);
   console.log(` >>> ENV: ${process.env.NODE_ENV}`);
+});
+
+
+
+
+// 专用于加载静态图片资源
+static
+  .use(koaStatic('./'))
+const staticServer = http.createServer(static.callback());
+staticServer.listen(9090, () => {
+  console.log(` >>> 静态资源端口: ${9090}`);
 });

@@ -1,11 +1,13 @@
 <template>
 	<div class="fst">
-		<router-view/>
+		<transition name="fade">
+			<router-view></router-view>
+		</transition>
 	</div>
 </template>
 
-<style lang="scss">
-@import '~@/assets/common/dpr.scss';
-.fst{
+<style lang="scss" scoped>
+.fst {
+	
 }
 </style>

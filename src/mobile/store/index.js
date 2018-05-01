@@ -13,7 +13,7 @@ Vue.prototype.$ajax = axios;
 
 // 储存总的数据
 export default new Vuex.Store({
-  state (e) {
+  state () {
     return {
       selectList: JSON.parse(sessionStorage.getItem('selectList')) || [],
       // 展示哪个组件？

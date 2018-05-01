@@ -8,7 +8,7 @@
 				返回
 			</span>
     </header>
-		<div class="container" v-if="home.length > 0">
+		<div class="container" v-if="detail">
 			<mt-swipe :auto="4000">
 				<mt-swipe-item v-for="(img,i) in detail.goods_image_list" :key="i">
 					<img :src="img" />
@@ -88,12 +88,12 @@ export default {
 		return {
 			showWhat: null,
 			company: store.state.company,
-			defaultImg: 'this.src="' + require('@/assets/images/fst/load_error.png') + '"',
+			defaultImg: store.state.defaultImg,
 		};
 	},
 	computed: {
-		detail: () => store.state.list[0],
-		home: () => store.state.list
+		home: () => store.state.list,
+		detail: () => store.state.list.find(arr => arr.id == router.currentRoute.query.goodId),
 	},
 	created() {
 		store.commit('list');
@@ -105,7 +105,7 @@ export default {
 		show(what){
 			store.state.showWhat = what
 		}
-	}
+	},
 }
 </script>
 <style lang="scss">
@@ -149,21 +149,12 @@ export default {
     background-color: #fff;
     justify-content: space-between;
     @include dpr-fz(28px);
-<<<<<<< HEAD
 
     span {
 			svg {
 		    @include dpr-fz(28px);
 				width: 0.1rem;
 			}
-=======
-    
-    .title {
-			@include dpr-fz(38px);
-    }
-    .option{
-			width: (86rem/75);
->>>>>>> 46cd3a478af73fc6d04775575d8481bf5d2f49e2
     }
 	}
 
