@@ -14,16 +14,16 @@ Vue.prototype.$ajax = axios;
 // 储存总的数据
 export default new Vuex.Store({
   state () {
+    console.log('state from vuex');
     return {
-      selectList: JSON.parse(sessionStorage.getItem('selectList')) || [],
-      // 展示哪个组件？
-      myInfo: JSON.parse(sessionStorage.getItem('myInfo')) || {},
-      showWhat: '',
       home: [],         // 首页1
       list: [],         // 商品列表
       home1: [],        // 首页2
       orderlist: [],    // 订单列表
-      company: location.pathname.match(/(?<=\/)\w+/)[0],
+      showWhat: '',     // 展示哪个组件？
+      selectList: JSON.parse(sessionStorage.getItem('selectList')) || [],
+      myInfo: JSON.parse(sessionStorage.getItem('myInfo')) || {},
+      company: location.pathname.match(/(?<=\/)\w+/) ? location.pathname.match(/(?<=\/)\w+/)[0]: 'fst',
       defaultImg: 'this.src="' + require('@/assets/images/gooli_bj.png') + '"'
     };
   },
