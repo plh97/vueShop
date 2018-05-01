@@ -13,6 +13,7 @@ module.exports = function (pandora) {
 
     // 定义进程环境变量，创建出来的进程中可以通过 process.env 获得
     .env({
+      NODE_ENV: "prod",
       PORT: '8003',
     })
 

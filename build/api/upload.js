@@ -1,7 +1,6 @@
 // apk
 const fs = require('fs-extra');
 const path = require('path');
-// const promise = require('bluebird');
 
 // local
 // const uploadFile = require('../utils/qiniu.js');
@@ -10,10 +9,17 @@ const { getType } = require('./mimes.js');
 const Upload = async (ctx, next) => {
   // if (ctx.method !== 'POST') return await next();
   let { file } = ctx.request.body.files;
-  console.log(ctx.request.body);
   if (!file.length) {
     file = [file];
   }
+  const env = process.env.NODE_ENV;
+  const url = name => {
+    if(env === 'dev'){
+      return `http://localhost:9090/public/${name}`
+    } else {
+      return `http://pipk.top:9090/public/${name}`;
+    }
+  } 
   ctx.body = await Promise.all(file.map(async (image) => {
     const ext = getType(image.type);
     const name = `${Math.random().toString().replace(/0./, '')}.${ext}`;
@@ -24,7 +30,7 @@ const Upload = async (ctx, next) => {
       stream.on('finish', async () => {
         resolve({
           name,
-          url: `http://pipk.top:9090/public/${name}`,
+          url: url(name),
         });
       });
     });

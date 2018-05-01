@@ -3,21 +3,19 @@
 		<v-Header title="编辑个人资料" option="保存" />
 		<div class="msg-body">
 			<ul>
-				<li>
-          <router-link class="router-avator" tag="span" :to="`/${company}/avator`">
-            <label>头像</label>
-            <span class="right-part">
-              <img class="avator" src="@/assets/images/lufa/autoPhoto.jpg" alt="">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-arrowright"></use>
-              </svg>
-            </span>
-          </router-link>
-				</li>
+        <router-link class="router-avator" tag="li" :to="`/${company}/avator`">
+          <label>头像</label>
+          <span class="right-part">
+            <img class="avator" :src="myInfo.avatarUrl" :onerror="defaultImg">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-arrowright"></use>
+            </svg>
+          </span>
+        </router-link>
 				<li>
 					<label>用户名</label>
 					<span class="right-part">
-						<input type="text" name="userName" placeholder="用户名" maxlength="12">
+						<input :value="$store.state.myInfo.name" @input="save($event.target.value , 'name')" type="text" name="userName" placeholder="用户名" maxlength="12">
 						<svg class="icon" aria-hidden="true">
 							<use xlink:href="#icon-arrowright"></use>
 						</svg>
@@ -26,9 +24,9 @@
 				<li>
 					<label>性别</label>
 					<span class="right-part">
-            <select name="sex" id="sex">
-              <option value="1">男</option>
-              <option value="0">女</option>
+            <select :value="$store.state.myInfo.sex" @change="save($event.target.value , 'sex')" name="sex" id="sex">
+              <option value="male">男</option>
+              <option value="female">女</option>
             </select>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-arrowright"></use>
@@ -47,7 +45,7 @@
 				<li>
 					<label>手机号码</label>
 					<span class="right-part">
-            <input type="number" name="phoneNum" oninput="if(value.length>11)value=value.slice(0,11)">
+            <input :value="$store.state.myInfo.phone" @input="save($event.target.value , 'phone')" type="number" name="phoneNum">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-arrowright"></use>
             </svg>
@@ -56,7 +54,7 @@
 				<li>
 					<label>邮箱</label>
 					<span class="right-part">
-            <input type="text" name="mail">
+            <input :value="$store.state.myInfo.email" @input="save($event.target.value , 'email')" type="mail" name="mail">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-arrowright"></use>
             </svg>
@@ -65,28 +63,26 @@
 				<li>
 					<label>地址管理</label>
 					<span class="right-part">
-            <input type="textarea" name="address">
+            <input :value="$store.state.myInfo.address" @input="save($event.target.value , 'address')" type="textarea" name="address">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-arrowright"></use>
             </svg>
           </span>
 				</li>
-				<li>
-          <router-link class="router-avator" tag="span" :to="`/${company}/modifypwd`">
-            <label>修改密码</label>
-            <span class="right-part">
-              <!-- <input type="password" name="pwd" minlength="8" maxlength="16"> -->
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-arrowright"></use>
-              </svg>
-            </span>
-          </router-link>
-				</li>
+        <router-link class="router-avator" tag="li" :to="`/${company}/modifypwd`">
+          <label>修改密码</label>
+          <span class="right-part">
+            <!-- <input type="password" name="pwd" minlength="8" maxlength="16"> -->
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-arrowright"></use>
+            </svg>
+          </span>
+        </router-link>
 			</ul>
 			<ul class="hobby">
-          <label>爱好：</label>
-          <!-- <input type="text" class="content-hobby"> -->
-          <textarea name="hobby" class="content-hobby" placeholder="（50字以内）" maxlength="50"></textarea>
+        <label>爱好：</label>
+        <!-- <input type="text" class="content-hobby"> -->
+        <textarea :value="$store.state.myInfo.hobby" @input="save($event.target.value , 'hobby')" name="hobby" class="content-hobby" placeholder="（50字以内）" maxlength="50"></textarea>
 			</ul>
 		</div>
 	</div>
@@ -98,10 +94,20 @@ export default {
   store,
   data() {
     return {
+      myInfo: store.state.myInfo,
       company: store.state.company,
       defaultImg:
         'this.src="' + require("@/assets/images/fst/load_error.png") + '"'
     };
+  },
+  methods:{
+    save(val,id){
+      store.state.myInfo = Object.assign({},store.state.myInfo,{
+        [id]: val
+      });
+      store.commit('sync','myInfo');
+      console.log( store.state , val ,  id );
+    }
   }
 };
 </script>

@@ -13,14 +13,14 @@
 			</div>
 			<div class="header-cen">
 				<router-link tag="span" :to="`/${company}/message`">
-					<img src="" :onerror="defaultImg">
+					<img :src="myInfo.avatarUrl" :onerror="defaultImg">
 				</router-link>
 				<span>
 					<svg class="icon" aria-hidden="true">
 						<use xlink:href="#icon-set"></use>
 					</svg>  
 				</span>
-				<span>call</span>
+				<span>{{myInfo.name}}</span>
 			</div>
 		</div>
 		<div class="user-account">
@@ -134,12 +134,11 @@ export default {
   store,
   data() {
     return {
+      defaultImg: store.state.defaultImg,
+			myInfo: store.state.myInfo,
       company: store.state.company
     };
   },
-	computed: {
-		defaultImg: () => store.state.defaultImg,
-	},
 };
 </script>
 

@@ -9,7 +9,7 @@
       </router-link>
       <span class="option" @click="toggle">···</span>
     </header>
-    <img class="avator-img" src="@/assets/images/lufa/autoPhoto.jpg" alt="">
+    <img class="avator-img" :src="myInfo.avatarUrl" :onerror="defaultImg">
     <div class="mask" v-show="isShow">
       <div class="btn-able" id="btn-able">
         <button class="local-photo" @click="upload">本地相册</button>
@@ -28,6 +28,8 @@ export default {
   store,
   data() {
     return {
+      defaultImg: store.state.defaultImg,
+      myInfo: store.state.myInfo,
       company: store.state.company,
       isShow: false
     };
@@ -55,8 +57,7 @@ export default {
       input_upload.id = "pengliheng";
       input_upload.click();
       input_upload.addEventListener("change", e => {
-        let url = "${ctx}" + "/file/upload";
-        this.ajax_upload_image(e, url);
+        this.ajax_upload_image(e);
       });
     },
     init_camera() {
@@ -65,13 +66,12 @@ export default {
       input_upload.accept = "image/*";
       input_upload.click();
       input_upload.addEventListener("change", e => {
-        let url = "${ctx}" + "/file/upload";
-        this.ajax_upload_image(e, url);
+        this.ajax_upload_image(e);
       });
     },
 
     //上传保存，暂时没有接口
-    ajax_upload_image(e, url) {
+    ajax_upload_image(e) {
       let file = e.path[0].files[0];
       let formData = new FormData();
       formData.append("file", file);
@@ -79,15 +79,16 @@ export default {
         method: 'post',
         url: '/upload',
         data: formData
-      }).then(res=>{
+      }).then(res => {
         console.log('上传图片成功',res.data);
-        this.$el.querySelector('img').src = res.data[0].url;
+        store.state.myInfo.avatarUrl = res.data[0].url;
+        store.commit('sync','myInfo')
+        // this.$el.querySelector('img').src = res.data[0].url;
       })
     }
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 @import "~@/assets/common/dpr.scss";
