@@ -34,10 +34,11 @@ Vue.use(Mint);
 // var vConsole = new VConsole();
 
 
-Vue.use(Vuex);
 
 new Vue({
   el: "#app",
   router,
   render: h => h(App)
 })
+
+Vue.use(Vuex);

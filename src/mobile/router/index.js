@@ -2,9 +2,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/mobile/store';
-import {
-  Message
-} from 'peng-component';
 import jsonTemp from './jsonTemp';
 
 // 公共组件
@@ -32,12 +29,13 @@ const router = new Router({
   linkExactActiveClass: 'active'
 });
 
-const limitRouterFunc = (args) => {
-  const { to, next, limitPage } = args;
+const limitRouterFunc = ({
+  to, next, limitPage
+}) => {
   if (limitPage.indexOf(to.path) >= 0) {
     next();
   } else {
-    Message({
+    Component.message({
       type: 'warning',
       time: 1000,
       content: '请先登录~！',
@@ -51,12 +49,12 @@ const limitRouterFunc = (args) => {
 
 router.beforeEach((to, from, next) => {
   const isLogin = store.state.myInfo.name;
-  // const isLogin = true;
+  const company = store.state.company
   if(!isLogin){
     limitRouterFunc({
       to,
       next,
-      limitPage: ["/fst/login", "/fst/register"]
+      limitPage: [`/${company}/login`, `/${company}/register`],
     });
   }else{
     next()

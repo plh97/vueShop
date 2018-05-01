@@ -222,7 +222,7 @@ export default {
           num:1
         }))
       }
-      this.message(`添加一件商品成功~！`);
+      this.message(`添加一件${this.goodInfo.goods_name}成功~！`);
       store.commit('sync','selectList')
     },
   }

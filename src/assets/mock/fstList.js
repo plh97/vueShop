@@ -8,7 +8,7 @@ var data = Mock.mock(/api\/fstlist$/, {
   'rows|40-50': [{
     'id|+1': 66141,
     'goods_image': Random.image('500x500', '@colorful', '法赛特商品列表'),
-    'goods_image_list|1-5': [ Random.image('500x500', '@colorful', 'fst list') ],
+    'goods_image_list|3-5': [ Random.image('500x500', '@colorful', 'fst详') ],
     'new_price': 0.0,
     'goods_name|1': [
       '法塞特2011霜后赤霞珠干红葡萄酒 750ml', 

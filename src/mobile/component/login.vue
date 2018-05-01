@@ -7,7 +7,7 @@
         </svg>
         返回
       </span>
-      <span class="title">登录</span>
+      <span class="title">{{company}}登录</span>
       <span class="option"></span>
     </header>
     <img class="logo" src="~@/assets/images/fst/fst_logo.png" alt="">
@@ -41,12 +41,14 @@ export default {
   router,
   store,
   data() {
-    return {};
+    return {
+      company: store.state.company
+    };
   },
 
   methods: {
     go() {
-      router.push(`/fst`);
+      router.push(`/${this.company}`);
     },
     login(e){
       store.state.myInfo = {
@@ -55,8 +57,7 @@ export default {
         passWord: document.querySelector('#password').value,
       }
       store.commit('sync','myInfo')
-      console.log(router);
-      router.push(`/fst`)
+      router.push(`/${this.company}`)
     }
   }
 };

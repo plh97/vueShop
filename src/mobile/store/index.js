@@ -10,27 +10,30 @@ import '@/assets/mock';
 
 Vue.use(Vuex);
 Vue.prototype.$ajax = axios;
+const company = location.pathname.match(/(?<=\/)\w+/) ?
+  location.pathname.match(/(?<=\/)\w+/)[0]:
+  'fst';
 
 // 储存总的数据
 export default new Vuex.Store({
   state () {
     console.log('state from vuex');
     return {
+      company,
       home: [],         // 首页1
       list: [],         // 商品列表
       home1: [],        // 首页2
       orderlist: [],    // 订单列表
       showWhat: '',     // 展示哪个组件？
-      selectList: JSON.parse(sessionStorage.getItem('selectList')) || [],
-      myInfo: JSON.parse(sessionStorage.getItem('myInfo')) || {},
-      company: location.pathname.match(/(?<=\/)\w+/) ? location.pathname.match(/(?<=\/)\w+/)[0]: 'fst',
+      myInfo: JSON.parse(sessionStorage.getItem(`${company}_myInfo`)) || {},
+      selectList: JSON.parse(sessionStorage.getItem(`${company}_selectList`)) || [],
       defaultImg: 'this.src="' + require('@/assets/images/gooli_bj.png') + '"'
     };
   },
   mutations: {
     // 同步一些数据到 sessionStorage
     sync: (state,data) => {
-      sessionStorage.setItem(data,JSON.stringify(state[data])); 
+      sessionStorage.setItem(`${company}_${data}`,JSON.stringify(state[data])); 
     },
 
     home: async state => {

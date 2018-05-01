@@ -203,7 +203,7 @@ export default {
           num: this.num
         }))
       }
-      this.message(`添加${this.num}件商品成功~！`);
+      this.message(`添加${this.num}件${this.goodInfo.goods_name}成功~！`);
       store.commit('sync','selectList')
       store.state.showWhat = '';
       document.body.style.overflow = 'scroll';
