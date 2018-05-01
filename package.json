@@ -2,7 +2,7 @@
   "name": "dsvuemall",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "仁龙社彭于晏 <jaychiu94tw@gmail.com>",
+  "author": "peng <pengliheng@gmail.com>",
   "private": true,
   "scripts": {
     "w": "webpack --color --progress --env.NODE_ENV=dev -w",

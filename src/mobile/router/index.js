@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
     limitRouterFunc({
       to,
       next,
-      limitPage: [`/${company}/login`, `/${company}/register`],
+      limitPage: [ `/${company}/login`, `/${company}/register`,'/'],
     });
   }else{
     next()
