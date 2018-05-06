@@ -1,11 +1,9 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-
-console.log('pc');
+import '@/assets/common/common.scss';
 
 new Vue({
   router,
-  components: { App },
-  template: '<App/>'
+  render: h=>h(App)
 }).$mount(document.querySelector('#app'));

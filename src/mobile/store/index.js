@@ -17,7 +17,6 @@ const company = location.pathname.match(/(?<=\/)\w+/) ?
 // 储存总的数据
 export default new Vuex.Store({
   state () {
-    console.log('state from vuex');
     return {
       company,
       home: [],         // 首页1
