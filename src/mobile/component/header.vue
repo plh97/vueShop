@@ -1,15 +1,15 @@
 <template>
   <header class="header">
-    <router-link class="option" fst tag="span" :to="`/${company}/usercenter`">
+    <span class="option" @click="go(leftBackTo)">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-jiantou-copy"></use>
       </svg>
       返回
-    </router-link>
+    </span>
     <span class="title">{{title}}</span>
-    <router-link class="option" fst tag="span" :to="`/${company}/usercenter`">
+    <span class="option" @click="go(rightBackTo)">
       {{option}}
-    </router-link>
+    </span>
   </header>
 </template>
 
@@ -23,14 +23,23 @@ export default {
   data() {
     return {
       title: this.$attrs.title,
-      company: store.state.company,
       backto: this.$attrs.backto,
-      option: this.$attrs.option
+      option: this.$attrs.option,
+      company: store.state.company,
+      leftBackTo: this.$attrs.leftBackTo,
+      rightBackTo: this.$attrs.rightBackTo,
     };
   },
+  created() {},
   methods: {
-    go() {
-      router.go(-1);
+    go(url) {
+      if(url === undefined){
+        router.push(
+          `/${store.state.company}/usercenter`
+        );
+      }else{
+        router.go(url);
+      }
     }
   }
 };

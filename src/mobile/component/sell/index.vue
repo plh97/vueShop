@@ -32,7 +32,7 @@
 				:key='i'
 				:data-id="list.id"
 				tag="li"
-				v-for="(list,i) in good_list"
+				v-for="(list,i) in list"
 				:to="`/${company}/goodsdetail?goodId=${list.id}`"
 			>
 				<img :src="list.goods_image" :onerror="defaultImg">

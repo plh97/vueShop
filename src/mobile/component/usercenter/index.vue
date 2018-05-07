@@ -5,11 +5,11 @@
 				<router-link tag="span" :to="`/${company}/vipcard`">
 					<svg class="icon" aria-hidden="true">
 						<use xlink:href="#icon-erweima"></use>
-					</svg> 
+					</svg>
 				</router-link>
-				<svg class="icon" aria-hidden="true">
+				<svg @click="loginOut" class="icon" aria-hidden="true">
 					<use xlink:href="#icon-tuichu1"></use>
-				</svg>  
+				</svg>
 			</div>
 			<div class="header-cen">
 				<router-link tag="span" :to="`/${company}/message`">
@@ -44,7 +44,7 @@
 						<span>容积分</span>
 				
 					</li>
-					<router-link tag="li" :to="`/${company}/ourcoupon`">
+					<router-link tag="li" :to="`/${company}/coupon`">
 						<em>0</em>
 						<span>优惠券</span>
 					</router-link>
@@ -138,7 +138,22 @@ export default {
 			myInfo: store.state.myInfo,
       company: store.state.company
     };
-  },
+	},
+	methods:{
+		loginOut(e){
+			this.$messagebox.confirm('你确定要退出登陆？')
+				.then(action => {
+					store.commit('syncState',{
+						stateName: 'myInfo',
+						stateValue: {
+							name: null
+						}
+					});
+					store.commit('syncSession' , 'myInfo')
+					router.go(-1)
+				})
+		}
+	}
 };
 </script>
 
@@ -210,7 +225,7 @@ export default {
       align-items: center;
       justify-content: space-between;
       margin: 0 (24rem/75);
-      border-bottom: 0.01rem solid #eee;
+      border-bottom: 0.03rem solid #eee;
       h3 {
         height: (46rem/75);
         padding-left: (15rem/75);

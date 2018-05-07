@@ -1,10 +1,16 @@
 <template>
 	<div class="goodslist">
 		<div class="header">
-           <span class="logo"><img src="@/assets/images/fst/logo.png"></span>
-		   <input type="text"  placeholder="请输入商品名称" id="search">
-		   <span class="seek" id="seekd"><img src="@/assets/images/fst/seek.png"></span>
-		   <span class="seek" id="seeks" @click="seek()"><img src="@/assets/images/fst/seek.png"></span>
+			<span class="logo">
+				<img src="@/assets/images/fst/logo.png">
+			</span>
+			<input type="text"  placeholder="请输入商品名称" id="search">
+			<span class="seek" id="seekd">
+				<img src="@/assets/images/fst/seek.png">
+			</span>
+			<span class="seek" id="seeks" @click="seek()">
+				<img src="@/assets/images/fst/seek.png">
+			</span>
 		</div>
 		<mt-swipe :auto="4000">
 			<mt-swipe-item>
@@ -43,15 +49,14 @@
 			<img src="@/assets/images/fst/activity.png" alt="">
 		</div>
 		<div class="content">
-			<h3>卓搞家族</h3>
+			<h3>卓高商城</h3>
 			<ul class="container">
     		    <router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
 					<img :src="arr.goods_image" :onerror="defaultImg">
-					<!-- <img :src="`http://kingubo.com/daocheng/${arr.goods_image}`"> -->
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
 					    <p>{{arr.goods_type_name}}</p>
-				        <span class="news-retail">￥{{numberFormat(arr.retail_price,2)}}</span>
+							<span class="news-retail">{{arr.retail_price | currency}}</span>
 					</div>
 				</router-link>
 			</ul>
@@ -70,7 +75,7 @@
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
 					    <p>{{arr.goods_type_name}}</p>
-						<span class="news-retail">￥{{numberFormat(arr.retail_price,2)}}</span>
+						<span class="news-retail">{{arr.retail_price | currency}}</span>
 					</div>
 				</router-link>
 			</ul>
@@ -88,7 +93,6 @@
 
 <script>
 import store from '@/mobile/store';
-import numFormat from '@/assets/common/dom';  //金额格式化
 const randomNum = ~~(Math.random() * 5);
 
 export default {
@@ -96,7 +100,6 @@ export default {
 	data() {
 		return {
 			company: store.state.company,
-			numberFormat:numFormat.numberFormat  //金额格式化
 		};
 	},
 	computed: {

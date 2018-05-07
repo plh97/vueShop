@@ -204,7 +204,7 @@ export default {
         }))
       }
       this.message(`添加${this.num}件${this.goodInfo.goods_name}成功~！`);
-      store.commit('sync','selectList')
+      store.commit('syncSession','selectList')
       store.state.showWhat = '';
       document.body.style.overflow = 'scroll';
     },

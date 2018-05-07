@@ -45,7 +45,7 @@
 				<li>
 					<label>手机号码</label>
 					<span class="right-part">
-            <input :value="$store.state.myInfo.phone" @input="save($event.target.value , 'phone')" type="number" name="phoneNum">
+            <input :value="$store.state.myInfo.phone" @input="save($event.target.value , 'phone')" type="number" name="phoneNum" oninput="if(value.length>11)value=value.slice(0,11)">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-arrowright"></use>
             </svg>
@@ -60,7 +60,7 @@
             </svg>
           </span>
 				</li>
-				<li>
+        <router-link class="router-avator" tag="li" :to="`/${company}/address`">
 					<label>地址管理</label>
 					<span class="right-part">
             <input :value="$store.state.myInfo.address" @input="save($event.target.value , 'address')" type="textarea" name="address">
@@ -68,7 +68,7 @@
               <use xlink:href="#icon-arrowright"></use>
             </svg>
           </span>
-				</li>
+        </router-link>
         <router-link class="router-avator" tag="li" :to="`/${company}/modifypwd`">
           <label>修改密码</label>
           <span class="right-part">
@@ -95,18 +95,21 @@ export default {
   data() {
     return {
       myInfo: store.state.myInfo,
-      company: store.state.company,
-      defaultImg:
-        'this.src="' + require("@/assets/images/fst/load_error.png") + '"'
+      company: store.state.company
     };
   },
-  methods:{
-    save(val,id){
-      store.state.myInfo = Object.assign({},store.state.myInfo,{
-        [id]: val
+  computed: {
+    defaultImg: () => store.state.defaultImg
+  },
+  methods: {
+    save(val, id) {
+      store.commit("syncState", {
+        stateName: "myInfo",
+        stateValue: {
+          [id]: val
+        }
       });
-      store.commit('sync','myInfo');
-      console.log( store.state , val ,  id );
+      store.commit("syncSession", "myInfo");
     }
   }
 };
@@ -178,13 +181,17 @@ export default {
         input {
           @include dpr-fz(32px);
           height: (86rem/75);
+          width: (300rem/75);
           border: none;
           text-align: right;
           color: #999;
           background: none;
+          padding-right: (25rem/75);
           &.birthday {
-            width: (240rem/75);
+            width: (300rem/75);
             appearance: none;
+            // text-align: right;
+            direction: rtl;
           }
         }
         select {
@@ -192,10 +199,11 @@ export default {
           color: #999;
           border: none;
           height: (86rem/75);
-          width: (90rem/75);
+          width: (300rem/75);
           direction: rtl;
           appearance: none;
           background: none;
+          padding-right: (25rem/75);
           option {
             @include dpr-fz(14px);
           }

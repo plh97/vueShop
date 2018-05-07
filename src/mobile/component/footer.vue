@@ -13,7 +13,7 @@
         </svg>
         分类
       </router-link>
-      <router-link tag="li" :to="`/${company}/set`">
+      <router-link tag="li" :to="`/${company}/shopcar`">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-wodegouwuchexin"></use>
         </svg>

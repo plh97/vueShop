@@ -70,7 +70,6 @@
 				</li>
 			</ul>
 		</div>
-		
     <div class="categories">
       <div class="title">
         <svg class="icon" aria-hidden="true">
@@ -97,23 +96,20 @@
 						<img src="@/assets/images/lufa/更多分类.png" :onerror="defaultImg">
 					</li>
 				</ul>
-      		</div>  
-			
+			</div>
 			<div class="activity">
 				<img src="@/assets/images/lufa/横图.png" :onerror="defaultImg">
 			</div>     
     </div>
-
 		<div class="content">
 			<h3>鹭发商贸</h3>
 			<ul class="container">
         <router-link  v-for="(arr,i) in home" :key='i' tag="li" :to="`/${company}/goodsdetail?goodId=${arr.id}`">
-				<!-- <li v-for="(arr,i) in home" :key='i'> -->
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
             <p>{{arr.goods_type_name}}</p>
-            <span class="news-retail">￥{{numberFormat(arr.retail_price,2)}}</span>
+						<span class="news-retail">{{arr.retail_price | currency}}</span>
 					</div>
 				</router-link>
 			</ul>
@@ -131,8 +127,8 @@
 					<img :src="arr.goods_image" :onerror="defaultImg">
 					<div class="list-news">
 						<span class="news-name">{{arr.goods_name}}</span>
-					    <p>{{arr.goods_type_name}}</p>
-				        <span class="news-retail">￥{{numberFormat(arr.retail_price,2)}}</span>
+						<p>{{arr.goods_type_name}}</p>
+						<span class="news-retail">{{arr.retail_price | currency}}</span>
 					</div>
 				</router-link>
 			</ul>
@@ -147,10 +143,8 @@
 		<v-Footer/>
 	</div>	
 </template>
-
 <script>
 import store from '@/mobile/store';
-import numFormat from '@/assets/common/dom'  //金额格式化
 const randomNum = ~~(Math.random() * 5);
 
 export default {
@@ -160,7 +154,6 @@ export default {
       company: store.state.company,
 			dpr: dpr === 1 ? "" : `@${dpr}x`,
 			searchBarFixed: false,
-			numberFormat:numFormat.numberFormat  //金额格式化
 		};
 	},
 	methods: {
@@ -181,18 +174,16 @@ export default {
 			document.getElementById('search').style.display='block';
 			document.getElementById('seeks').style.display='none';
 		},
-		// _.debounce(function (){
-			handleScroll (e) {
-				if(this._routerRoot._route.fullPath === '/lufa'){
-					const scrollTop = window.pageYOffset ||  document.documentElement.scrollTop || document.body.scrollTop
-					if(scrollTop<180){
-						document.querySelector('.header').style.backgroundColor = `rgba(255, 50, 103, ${scrollTop/200})`;
-					}else{
-						document.querySelector('.header').style.backgroundColor = `rgba(255, 50, 103, 0.9)`;
-					}
+		handleScroll (e) {
+			if(this._routerRoot._route.fullPath === '/lufa'){
+				const scrollTop = window.pageYOffset ||  document.documentElement.scrollTop || document.body.scrollTop
+				if(scrollTop<180){
+					document.querySelector('.header').style.backgroundColor = `rgba(255, 50, 103, ${scrollTop/200})`;
+				}else{
+					document.querySelector('.header').style.backgroundColor = `rgba(255, 50, 103, 0.9)`;
 				}
 			}
-		// },100)
+		}
 	},
 	computed: {
 		defaultImg: () => store.state.defaultImg,

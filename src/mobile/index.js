@@ -1,8 +1,9 @@
 import 'lib-flexible';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Mint, { Swipe, SwipeItem, Lazyload } from 'mint-ui';
-// import VConsole from 'vconsole';
+import Mint, { Swipe, SwipeItem, Lazyload, Toast } from 'mint-ui';
+
+
 import App from './App.vue';
 import { currency } from '@/assets/common/currency'
 import router from './router';
@@ -16,12 +17,13 @@ import 'peng-component';
 import '@/assets/iconfont/iconfont';
 import '@/assets/common/common.scss';
 
-Vue.prototype.message = Component.message;
+Vue.prototype.message = Component.Message;
 
 // 注册组件
 Vue.component(Swipe.name, Swipe);
 Vue.component(Input.name, Input);
 Vue.component(Label.name, Label);
+Vue.component('toast', Toast);
 Vue.component(Header.name, Header);
 Vue.component(Footer.name, Footer);
 Vue.component(SwipeItem.name, SwipeItem);
@@ -31,7 +33,6 @@ Vue.component(InputNum.name, InputNum);
 Vue.filter('currency', currency)
 Vue.use(Lazyload);
 Vue.use(Mint);
-// var vConsole = new VConsole();
 
 
 

@@ -45,8 +45,8 @@
 </template>
 
 <style lang="scss" scoped>
-@import '~@/assets/common/dpr.scss';
-@import '~@/assets/common/color.scss';
+@import "~@/assets/common/dpr.scss";
+@import "~@/assets/common/color.scss";
 
 .nav-bar {
   width: 100%;
@@ -58,7 +58,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 
     .mask {
       flex: 1;
@@ -68,7 +68,7 @@
       background-color: #fff;
       padding: (25rem/75);
       height: (100rem/75);
-	    @include flex-center();
+      @include flex-center();
       justify-content: space-between;
       @include dpr-fz(34px);
       color: #333333;
@@ -105,7 +105,7 @@
           height: 100%;
           margin: 0 (13rem/75);
         }
-        
+
         .context {
           height: 100%;
           @include flex-center();
@@ -126,7 +126,7 @@
 
             .price {
               font-weight: bold;
-              color: #E63131;
+              color: #e63131;
             }
 
             .num {
@@ -140,7 +140,7 @@
     .btn {
       background-color: #fff;
       height: (100rem/75);
-      background-color: #E63131;
+      background-color: #e63131;
       width: 100%;
       color: #fff;
       @include dpr-fz(28px);
@@ -157,7 +157,7 @@
       flex: 0 0 25vw;
       color: #999999;
       height: (100rem/75);
-	    @include flex-center();
+      @include flex-center();
       flex-direction: column;
       @include dpr-fz(24px);
 
@@ -165,26 +165,25 @@
         font-size: 0.6rem;
       }
 
-      &:nth-child(3){
-        color: #FFF;
-        background-color: #E69731;
-	      @include dpr-fz(28px);
+      &:nth-child(3) {
+        color: #fff;
+        background-color: #e69731;
+        @include dpr-fz(28px);
       }
 
-      &:nth-child(4){
-        color: #FFF;
-        background-color: #E63131;
-	      @include dpr-fz(28px);
+      &:nth-child(4) {
+        color: #fff;
+        background-color: #e63131;
+        @include dpr-fz(28px);
       }
     }
   }
 }
-
 </style>
 
 <script>
-import store from '@/mobile/store';
-import router from '@/mobile/router';
+import store from "@/mobile/store";
+import router from "@/mobile/router";
 
 export default {
   store,
@@ -194,39 +193,43 @@ export default {
       required: true
     }
   },
-  data(){
+  data() {
     return {
-      foo:'foo',
+      foo: "foo",
       show: false,
-      list: store.state.selectList,
-    }
+      list: store.state.selectList
+    };
   },
   methods: {
     toggle() {
       if (this.show) {
         this.show = false;
-        document.body.style.overflow = 'scroll';
+        document.body.style.overflow = "scroll";
       } else {
         this.show = true;
-        document.body.style.overflow = 'hidden';
+        document.body.style.overflow = "hidden";
       }
     },
-    add(){
-      const isExist = store.state.selectList.find(arr=> arr.goods_name === this.goodInfo.goods_name);
-      if(isExist) {
+    add() {
+      const isExist = store.state.selectList.find(
+        arr => arr.goods_name === this.goodInfo.goods_name
+      );
+      if (isExist) {
         // +1
-        isExist.num +=1
+        isExist.num += 1;
       } else {
         // 新增
-        store.state.selectList.push(Object.assign({}, this.goodInfo, {
-          num:1
-        }))
+        store.state.selectList.push(
+          Object.assign({}, this.goodInfo, {
+            num: 1
+          })
+        );
       }
       this.message(`添加一件${this.goodInfo.goods_name}成功~！`);
-      store.commit('sync','selectList')
-    },
+      store.commit("syncSession", "selectList");
+    }
   }
-}
+};
 </script>
 
 

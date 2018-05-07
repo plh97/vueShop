@@ -5,9 +5,3 @@
 		</transition>
 	</div>
 </template>
-
-<style lang="scss" scoped>
-.fst {
-	
-}
-</style>

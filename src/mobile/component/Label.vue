@@ -1,6 +1,6 @@
 <template>
   <label :for="id">
-    <input type="checkbox" :id='id' @input="updateValue">
+    <input type="checkbox" :id='id' @change="updateValue">
     <span></span>
     <slot />
   </label>
@@ -61,24 +61,24 @@ label {
   input + span:before {
     display: inline-block;
     width: (36rem/75);
-    height: (36rem/75);
+    height: (35rem/75);
     content: "";
-    border: 0.02rem solid #c0c0c0;
+    border: 0.03rem solid #c0c0c0;
     border-radius: 50%;
   }
   input + span:after {
     position: absolute;
     display: none;
     content: "";
-    top: (6rem/75);
-    left: (6rem/75);
-    width: (24rem/75);
-    height: (24rem/75);
+    top: 0.08rem;
+    left: 0.09rem;
+    width: 0.3rem;
+    height: 0.29rem;
     border-radius: 50%;
     background: #e63131;
   }
   input:checked + span:before {
-    border: 0.02rem solid #e63131;
+    border: 0.03rem solid #e63131;
   }
   input:checked + span:after {
     display: block;

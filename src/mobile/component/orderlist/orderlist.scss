@@ -14,7 +14,7 @@ section {
         width: 94vw;
         margin: 0 3vw;
         .order-info {
-          border-bottom: 0.02rem solid #eee;
+          border-bottom: 0.03rem solid #eee;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -38,7 +38,7 @@ section {
         }
         .goods-list {
           .good-item {
-            border-bottom: 0.02rem solid #eee;
+            border-bottom: 0.03rem solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -46,7 +46,7 @@ section {
             img {
               width: (150rem/75);
               height: (150rem/75);
-              border: 0.02rem solid #eee;
+              border: 0.03rem solid #eee;
               border-radius: 0.1rem;
             }
             .good-info {
@@ -84,7 +84,7 @@ section {
           @include dpr-fz(26px);
           color: #666;
           padding: 0.2rem 0;
-          border-bottom: 0.02rem solid #eee;
+          border-bottom: 0.03rem solid #eee;
           span {
             @include dpr-fz(30px);
           }
@@ -95,7 +95,7 @@ section {
           button {
             width: (150rem/75);
             height: (60rem/75);
-            border: 0.02rem solid #ccc;
+            border: 0.03rem solid #ccc;
             border-radius: 0.1rem;
             background: none;
             @include dpr-fz(26px);
@@ -103,11 +103,11 @@ section {
             margin-left: 0.1rem;
             &.pay,
             &.return {
-              border: 0.02rem solid #e63131;
+              border: 0.03rem solid #e63131;
               color: #e63131;
             }
             &.confirm {
-              border: 0.02rem solid #d9a656;
+              border: 0.03rem solid #d9a656;
               color: #d9a656;
             }
           }

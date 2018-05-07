@@ -6,7 +6,7 @@
           <div class="order-info">
             <div class="id-time">
               <label class="order-id">订单号：{{orderItem.order_id}}</label>
-              <span class="order-time">下单时间：</span>
+              <span class="order-time">下单时间：{{orderItem.time}}</span>
             </div>
             <label class="order-status">{{orderItem.status}}</label>
           </div>
@@ -28,7 +28,11 @@
             共件商品 合计：￥<span></span>
           </div>
           <div class="options">
-            <button class="detail">查看订单</button>
+
+            <router-link class="detail" tag="button" :to="`/${company}/orderdetail?orderid=${orderItem.order_id}`">
+              查看订单
+            </router-link>
+
             <button class="delete">删除</button>
             <!-- <button class="pay">付款</button> -->
             <!-- <button class="return">退货</button>

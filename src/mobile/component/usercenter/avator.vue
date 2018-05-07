@@ -28,18 +28,17 @@ export default {
   store,
   data() {
     return {
-      defaultImg: store.state.defaultImg,
       myInfo: store.state.myInfo,
       company: store.state.company,
       isShow: false
     };
   },
+	computed: {
+		defaultImg: () => store.state.defaultImg,
+	},
   mounted() {
     let mask = document.querySelector(".mask");
     mask.addEventListener("click", e => {
-      console.log(e.path);
-      console.log(e.path.id);
-      console.log("==============================================");
       if (e.path === "btn-able") {
         this.isShow = true;
       } else {
@@ -54,7 +53,6 @@ export default {
     upload() {
       let input_upload = document.createElement("input");
       input_upload.type = "file";
-      input_upload.id = "pengliheng";
       input_upload.click();
       input_upload.addEventListener("change", e => {
         this.ajax_upload_image(e);
@@ -77,13 +75,17 @@ export default {
       formData.append("file", file);
       this.$ajax({
         method: 'post',
-        url: '/upload',
-        data: formData
+        url: 'http://192.168.1.9:3005/upload',
+        data: formData,
       }).then(res => {
-        console.log('上传图片成功',res.data);
-        store.state.myInfo.avatarUrl = res.data[0].url;
-        store.commit('sync','myInfo')
-        // this.$el.querySelector('img').src = res.data[0].url;
+        store.commit('syncState',{
+          stateName: 'myInfo',
+          stateValue: {
+            avatarUrl: res.data[0].url
+          }
+        });
+        store.commit('syncSession','myInfo');
+        document.querySelector('img').src = res.data[0].url;
       })
     }
   }

@@ -6,9 +6,9 @@
         <img class="card" src="~@/assets/images/lufa/shareus_vip.png" alt="">
         <div class="vip-info-box">
           <div class="vip-info">
-            <img class="avator" src="~@/assets/images/lufa/autoPhoto.jpg" alt="">
+            <img class="avator-img" :src="myInfo.avatarUrl" :onerror="defaultImg">
             <div class="name-integral">
-              <h1 class="user-name">Calven</h1>
+              <h1 class="user-name">{{myInfo.name}}</h1>
               <label>积分：120,000</label>
             </div>
             <div>
@@ -25,72 +25,84 @@
 </template>
 
 <script>
+import store from "@/mobile/store";
 
+export default {
+  data() {
+    return {
+      myInfo: store.state.myInfo,
+      defaultImg: store.state.defaultImg
+    };
+  }
+};
 </script>
+
+
 <style  lang="scss">
-@import '~@/assets/common/dpr.scss';
-@import '~@/assets/common/common.scss';
-.vip-card{
-	.code-body{
+@import "~@/assets/common/dpr.scss";
+@import "~@/assets/common/common.scss";
+.vip-card {
+  .code-body {
     height: calc(100vh - 80rem/75);
-    background: #c83c3b; 
+    background: #c83c3b;
     overflow: hidden;
-		.bg-border{
-      max-height: (1200rem/75);
-      background: url('~@/assets/images/lufa/bu_shareus.png') no-repeat center/100% 100%;
-      .card{
+    .bg-border {
+      max-height: (1150rem/75);
+      width: (700rem/75);
+      margin: 0 auto;
+      background: url("~@/assets/images/lufa/bu_shareus.png") no-repeat
+        center/100% 100%;
+      .card {
         display: block;
         width: (680rem/75);
         height: (500rem/75);
         margin: 0 auto;
         padding: 0.5rem;
       }
-      .vip-info-box{
+      .vip-info-box {
         width: (400rem/75);
-        height:  (640rem/75);
-        margin: 0.6rem auto;  
-        .vip-info{
+        height: (640rem/75);
+        margin: 0.5rem auto;
+        .vip-info {
           display: flex;
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          .avator{
+          .avator-img {
             width: (80rem/75);
             height: (80rem/75);
             border-radius: 50%;
-            border: 1px solid #CCC;
+            border: 1px solid #ccc;
           }
-          .name-integral{
-
+          .name-integral {
           }
         }
-        .qr-code{
+        .qr-code {
           width: (400rem/75);
           height: (400rem/75);
-          border: 1px solid #CCC;
-          margin: 0.4rem 0;
+          border: 1px solid #ccc;
+          margin: 0.3rem 0;
         }
-        div{
-          label{
+        div {
+          label {
             @include dpr-fz(24px);
             color: #999;
             float: right;
           }
-          .user-name{
+          .user-name {
             @include dpr-fz(28px);
             color: #333;
           }
-          .grade{
+          .grade {
             @include dpr-fz(28px);
-            color: #C47B3A
+            color: #c47b3a;
           }
         }
-        p{
+        p {
           text-align: center;
         }
       }
-		}
-	}
+    }
+  }
 }
-
 </style>

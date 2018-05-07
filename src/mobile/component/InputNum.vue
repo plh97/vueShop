@@ -19,7 +19,7 @@
 
   svg {
     color: #999;
-    @include dpr-fz(44px);
+    @include dpr-fz(54px);
 
     &.active {
       color: $fst-red;
@@ -30,6 +30,7 @@
     color: #999;
     width: (64rem/75);
     border: none;
+    @include dpr-fz(30px);
     margin: 0 2px;
     text-align: center;
     background: #eee;
