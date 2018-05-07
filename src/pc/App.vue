@@ -4,10 +4,11 @@
 			<router-view/>
 		</div>
         <footer>
-            <!-- <p>© 2017道成科技技术支持, Inc. All rights reserved.</p> -->
+            <p>© 2017道成科技技术支持, Inc. All rights reserved.</p>
         </footer>
 	</div>
 </template>
+
 
 <style lang="scss" scoped>
 
