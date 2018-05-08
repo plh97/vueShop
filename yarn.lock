@@ -5719,9 +5719,42 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-peng-component@^1.1.17, peng-component@^1.3.8:
+peng-component@^1.1.17:
   version "1.3.8"
   resolved "https://registry.npmjs.org/peng-component/-/peng-component-1.3.8.tgz#40a883ce83167c3747b495bde6e461660381aee7"
+  dependencies:
+    "@pengliheng/github-report" "^1.2.17"
+    "@pengliheng/jquery" "^1.3.3"
+    babel-polyfill "^6.26.0"
+    babel-preset-es2015 "^6.24.1"
+    chai "^4.1.2"
+    clean-webpack-plugin "^0.1.18"
+    css-loader "^0.28.9"
+    eslint-config-airbnb "^16.1.0"
+    eslint-config-airbnb-base "^12.1.0"
+    eslint-plugin-import "^2.9.0"
+    extract-text-webpack-plugin "^3.0.2"
+    file-loader "^1.1.6"
+    font-awesome "^4.7.0"
+    html-webpack-plugin "^2.30.1"
+    http "^0.0.0"
+    jquery "^3.3.1"
+    less "^2.7.3"
+    less-loader "^4.0.5"
+    lib-flexible "^0.3.2"
+    loader "^2.1.1"
+    lodash.sortby "^4.7.0"
+    mocha "^5.0.0"
+    path "^0.12.7"
+    peng-component "^1.1.17"
+    style-loader "^0.20.1"
+    vconsole "^3.1.0"
+    webpack "^3.10.0"
+    webpack-merge "^4.1.1"
+
+peng-component@^1.3.9:
+  version "1.3.9"
+  resolved "https://registry.npmjs.org/peng-component/-/peng-component-1.3.9.tgz#7efea308478bd4e702151648d479b5fc74b9d267"
   dependencies:
     "@pengliheng/github-report" "^1.2.17"
     "@pengliheng/jquery" "^1.3.3"
