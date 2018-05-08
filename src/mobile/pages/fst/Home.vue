@@ -134,13 +134,13 @@ export default {
   margin-bottom: 1.3333rem;
 
   .header {
+    top: 0;
+    left: 0;
     z-index: 3;
     width: 100vw;
     height: (80rem/75);
     background: #c83c3b;
     position: fixed;
-    top: 0;
-    left: 0;
     @include flex-center();
     input {
       width: 75%;

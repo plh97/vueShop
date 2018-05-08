@@ -7,7 +7,8 @@
         </svg>
         返回
       </span>
-      <span class="title">编辑/新增 地址</span>
+      <span v-if="$router.currentRoute.query.id" class="title">编辑 地址</span>
+      <span v-else class="title">新增 地址</span>
       <span class="option" @click="save">
         保存
       </span>
@@ -16,23 +17,23 @@
       <ul>
         <li>
           <label>收货人</label>
-          <input id="name" type="text" placeholder="不少于两个字">
+          <input :value="detail.name" id="name" type="text" placeholder="不少于两个字">
         </li>
         <li>
           <label>手机号码</label>
-          <input maxlength="11" id="phone" type="text" placeholder="11手机号码">
+          <input :value="detail.phone" maxlength="11" id="phone" type="text" placeholder="11手机号码">
         </li>
         <li>
           <label>地区</label>
-          <input id="zone" type="text" placeholder="省份 城市 县区">
+          <input :value="detail.zone" id="zone" type="text" placeholder="省份 城市 县区">
         </li>
         <li>
           <label>详细地址</label>
-          <input id="address" type="text" placeholder="5~60字，且不能全都是数字">
+          <input :value="detail.address" id="address" type="text" placeholder="5~60字，且不能全都是数字">
         </li>
         <li>
           <label>邮政编码</label>
-          <input id="email" type="text" placeholder="6位邮政编码">
+          <input :value="detail.email" id="email" type="text" placeholder="6位邮政编码">
         </li>
         <li>
           <label for="default">
@@ -45,56 +46,76 @@
 </template>
 
 <script>
-import router from "@/mobile/router";
 import store from "@/mobile/store";
+import router from "@/mobile/router";
 export default {
   router,
   store,
+  computed: {
+    addressId: () => router.currentRoute.query.id,
+    detail: () => {
+      let address;
+      if(router.currentRoute.query.id){
+        address = store.state.myInfo.address.container[router.currentRoute.query.id]
+      } else {
+        address = { name:"", zone:"", phone:"", address:"" }
+      }
+      return address;
+    }
+  },
   methods: {
     save(){
-      let address = {
-        id: ~~(Math.random()*100000000)
-      };
-      [...document.querySelectorAll('input')].forEach( dom => {
-        if(dom.id === 'default'){
-          if(dom.checked){
-            // to set default address
-            
-            store.commit("syncState", {
-              stateName: "myInfo",
-              stateValue: {
-                address: Object.assign({}, store.state.myInfo.address,{
-                  default: address.id
-                }),
-              }
-            });
+      if(this.addressId){
+        let address = {
+          id: ~~(Math.random()*100000000)
+        };
+        [...document.querySelectorAll('input')].forEach( dom => {
+          if(dom.id !== 'default'){
+            address[dom.id] = dom.value;
           }
-        } else {
-          address[dom.id] = dom.value;
-        }
-      });
-
-      store.commit("syncState", {
-        stateName: "myInfo",
-        stateValue: {
-          address:[...store.state.myInfo.address,address],
-        }
-      });
-      
+        });
+        store.commit("syncState", {
+          stateName: "myInfo",
+          stateValue: {
+            address:  Object.assign({}, store.state.myInfo.address , {
+              container: store.state.myInfo.address.container.map(( arr,i ) => {
+                if(i == this.addressId){
+                  return address
+                }
+                return arr
+              })
+            })
+          }
+        });
+      } else {
+        let address = {
+          id: ~~(Math.random()*100000000)
+        };
+        [...document.querySelectorAll('input')].forEach( dom => {
+          if(dom.id !== 'default'){
+            address[dom.id] = dom.value;
+          }
+        });
+        store.commit("syncState", {
+          stateName: "myInfo",
+          stateValue: {
+            address:  Object.assign({}, store.state.myInfo.address , {
+              container: [...store.state.myInfo.address.container,address]
+            })
+          }
+        });
+      }
       store.commit("syncSession", "myInfo");
-      
       this.message({
         type: "info",				
-        time: 1000,					
+        time: 500,					
         content: `地址保存成功！`,
-        next: function(){
-          // to do something
+        next: () => {
           router.go(-1);
         }
       })
     },
     back(){
-      //
       router.go(-1);
     }
   }

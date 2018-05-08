@@ -7,7 +7,7 @@
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-address"></use>
           </svg>
-          选择收货地址
+          {{defaultAddress}}
         </span>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-arrowright"></use>
@@ -16,54 +16,52 @@
 
       <div class="pay-method">
         <p>支付方式</p>
-        <ul>
-          <li>
+        <form for="pay_type">
+          <label class="li" for="balance">
+            <input type="radio" name="radio" id="balance" value="true"/>
+            <div></div>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-available"></use>
             </svg>
             <span>￥120,000.00</span>
-          </li>
-          <li>
+          </label>
+          <label class="li" for="wx">
+            <input type="radio" name="radio" id="wx" value="true"/>
+            <div></div>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-weixinzhifu"></use>
             </svg>
             <span>微信钱包</span>
-          </li>
-          <li>
+          </label>
+          <label class="li" for="alipay">
+            <input type="radio" name="radio" id="alipay" value="true"/>
+            <div></div>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-zhifubao"></use>
             </svg>
             <span>支付宝</span>
-          </li>
-          <li>
+          </label>
+          <label class="li" for="bank">
+            <input type="radio" name="radio" id="bank" value="true"/>
+            <div></div>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-yinhang-yinlian-"></use>
             </svg>
             <span>银联</span>
-          </li>
-        </ul>
+          </label>
+        </form>
       </div>
 
       <div class="good-list">
         <p>商品列表</p>
         <ul>
-          <li>
-            <span>无色界离开洒家打开垃圾可怜见看来</span>
-            <span>&times;1</span>
-            <span>￥1231</span>
-          </li>
-          <li>
-            <span>dadad</span>
-            <span>&times;1</span>
-            <span>￥1231</span>
-          </li>
-          <li>
-            <span>dadad</span>
-            <span>&times;1</span>
-            <span>￥1231</span>
+          <li v-for="(list, i) in detail.list" :key="i">
+            <span>{{list.goods_name}}</span>
+            <span>&times;{{list.num}}</span>
+            <span>{{list.retail_price | currency}}</span>
           </li>
         </ul>
-        <p>共件商品&nbsp;&nbsp;总计：<span class="total">￥12444</span></p>
+        <p>共{{totalNum}}件商品&nbsp;&nbsp;总计：<span class="total">{{detail.totalPrice | currency}}</span></p>
       </div>
 
       <div class="others">
@@ -93,11 +91,13 @@
         </ul>
       </div>
 
+      <!-- {{$store.state.orderTemp}} -->
+
     </div>
 
     <div class="footer">
-      <div class="pay-amount">实付款：<em>￥1,644.00</em></div>
-      <div class="submit-order">提交订单</div>
+      <div class="pay-amount">实付款：<em>{{detail.totalPrice | currency}}</em></div>
+      <div @click="submitOrder" class="submit-order">提交订单</div>
     </div>
   </div>
 </template>
@@ -110,7 +110,17 @@ export default {
   data() {
     return {
       company: store.state.company,
+      detail: store.state.orderTemp,
     };
+  },
+  computed: {
+    defaultImg: () => store.state.defaultImg,
+    totalNum: ()=> store.state.orderTemp.list
+      .reduce((total , arr) => total + arr.num , 0),
+    defaultAddress: () => {
+      return (typeof store.state.myInfo.address.default === "number" && store.state.myInfo.address.default>=0) ?
+        store.state.myInfo.address.container[store.state.myInfo.address.default].address : '点击选择收货地址'
+    }
   },
 };
 </script>
@@ -152,21 +162,37 @@ export default {
         padding: 0.2rem;
         border-bottom: 0.03rem solid #eee;
       }
-      ul {
+      form {
         display: flex;
-        justify-content: space-between;
+        height: 2.26rem;
+        // margin: 0.2rem 0;
         align-items: center;
-        margin: 0.2rem 0;
-        li {
+        justify-content: space-between;
+        label {
           flex: 1;
+          height: 100%;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          justify-content: space-around;
+          justify-content: center;
+          position: relative;
+          z-index: 1;
+
+          input {
+            display: none;
+          }
+
+          input:checked + div:after {
+            content: " ";
+            position: absolute; left: 0; right: 0; top: 0; bottom: 0; 
+            z-index: -1;
+            background: linear-gradient(to top, #ffd2d2, white);
+          }
+
           svg {
-            @include dpr-fz(60px);
-            margin: 0.2rem 0;
+            @include dpr-fz(80px);
+            // margin: 0.2rem 0;
           }
           span {
             display: block;
@@ -175,11 +201,13 @@ export default {
         }
       }
     }
+
     .good-list {
       padding: 0 3vw;
       margin-bottom: 0.4rem;
       background: #fff;
-      height: (320rem/75);
+      min-height: (320rem/75);
+
       p {
         color: #999;
         @include dpr-fz(28px);
@@ -190,34 +218,36 @@ export default {
           @include dpr-fz(28px);
         }
         &:last-child {
-          border: none;
-          float: right;
+          text-align: right;
         }
       }
+
       ul {
         @include dpr-fz(32px);
         border-bottom: 0.03rem solid #eee;
-        margin: 0.1rem 0;
+        margin: 0.3rem 0 0;
+
         li {
+          color: #666;
+          margin: 0.3rem 0;
           display: flex;
           justify-content: space-between;
-          margin: 0.1rem 0;
-          color: #666;
-          span {
-            &:first-child {
-              width: (420rem/75);
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
+
+          span:first-child {
+            overflow: hidden;
+            width: (420rem/75);
+            white-space: nowrap;
+            @include dpr-fz(28px);
+            text-overflow: ellipsis;
           }
         }
       }
     }
+    
     .others {
       background: #fff;
       padding: 0 3vw;
-      margin-bottom: 1rem;
+      // margin-bottom: 1rem;
       ul {
         li {
           border-bottom: 0.03rem solid #eee;

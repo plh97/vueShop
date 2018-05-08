@@ -3,41 +3,42 @@
     <v-Header title="收货地址" option="" :leftBackTo="-1"/>
     <div class="content">
       <ul>
-        
-        <li v-for="(address,i) in myInfo.address" :key="i">
+        <li v-for="(address,i) in addressList" :key="i" @click="setDefault(i)" v-if="address.address">
           <div class="address-info">
             <div class="address-name">
-              <!-- 默认地址样式 -->
-              <span class="default-address" v-if="address.id === myInfo.address.default">
+
+              <span class="default-address" v-if="i === defaultAddress">
                 <svg class="icon" aria-hidden="true">
                   <use xlink:href="#icon-htmal5icon14"></use>
                 </svg>（默认）
               </span>
 
-              <span class="address-detail">广东省珠海市香洲区政府阳光大厦二楼2112室</span>
+              <span class="address-detail">{{address.address}}</span>
               <div class="receiver-phone">
-                <span>Calven</span>
-                <span>15916201994</span>
+                <span>{{address.name}}</span>
+                <span>{{address.phone}}</span>
               </div>
 
               <div class="option">
                 <span class="select">选择</span>
                 <span class="edit-del">
-                  <router-link class="address-select" tag="label" :to="`/${company}/newaddress`">
+                  <router-link class="address-select" tag="label" :to="`/${company}/newaddress?id=${i}`">
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#icon-bianji"></use>
                     </svg>编辑
                   </router-link>
-                  <label>
+                  <label @click="deleted(i)">
                     <svg class="icon" aria-hidden="true">
                       <use xlink:href="#icon-shanchu"></use>
                     </svg>删除 
                   </label>
                 </span>
               </div>
+
             </div>
           </div>
         </li>
+
       </ul>
     </div>
     <router-link tag="div" class="btn-add-address" :to="`/${company}/newaddress`">
@@ -58,6 +59,34 @@ export default {
       myInfo: store.state.myInfo,
       company: store.state.company
     };
+  },
+  computed:{
+    defaultAddress: () => store.state.myInfo.address.default,
+    addressList: ()=> store.state.myInfo.address.container
+  },
+  methods: {
+    setDefault(id){
+      store.commit("syncState", {
+        stateName: "myInfo",
+        stateValue: {
+          address: Object.assign({}, store.state.myInfo.address, {
+            default: id
+          })
+        }
+      });
+      store.commit("syncSession", "myInfo");
+    },
+    deleted(id){
+      store.commit("syncState", {
+        stateName: "myInfo",
+        stateValue: {
+          address: Object.assign({}, store.state.myInfo.address, {
+            container: store.state.myInfo.address.container.filter((arr,i) => i!== id)
+          })
+        }
+      });
+      store.commit("syncSession", "myInfo");
+    }
   }
 };
 </script>
@@ -72,11 +101,13 @@ export default {
     overflow-y: auto;
     ul {
       width: 100%;
+      li + li{
+        border-top: 0.04rem solid #eee;
+      }
       li {
-        height: (240rem/75);
+        height: auto;
         background: #fff;
         .address-info {
-          border-bottom: 0.04rem solid #eee;
           margin: 0 3vw;
           padding: (10rem/75) 0;
           .address-name {

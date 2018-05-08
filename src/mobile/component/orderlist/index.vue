@@ -15,9 +15,9 @@
         已退货
       </router-link>
 		</ul>
-<transition name="fade1">
-  <router-view></router-view>
-</transition>
+		<transition name="fade1">
+			<router-view></router-view>
+		</transition>
 	</div>
 </template>
 <script>

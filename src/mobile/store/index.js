@@ -32,6 +32,7 @@ export default new Vuex.Store({
       list: [],         // 商品列表
       home1: [],        // 首页2
       orderlist: [],    // 订单列表
+      orderTemp: JSON.parse(sessionStorage.getItem(`${company()}_orderTemp`)) || {},    // 缓存要提交的订单
       showWhat: '',     // 展示哪个组件？
       myInfo: JSON.parse(sessionStorage.getItem(`${company()}_myInfo`)) || {},
       selectList: JSON.parse(sessionStorage.getItem(`${company()}_selectList`)) || [],
@@ -66,7 +67,7 @@ export default new Vuex.Store({
 
     orderlist: async state => {
       if(state.orderlist.length !== 0) return;
-      state.orderlist = await api.getOrderlist({url: `${state.company}orderlist`})
+      // state.orderlist = await api.getOrderlist({url: `${state.company}orderlist`})
     },
   }
 });

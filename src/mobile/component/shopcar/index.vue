@@ -46,7 +46,9 @@
           {{totalPrice | currency}}
         </span>
       </div>
-      <div class="btn-account" @click="toPay">去结算</div>
+      <div class="btn-account" @click="toPay">
+        去结算
+      </div>
     </div>
 		<v-Footer/>
 	</div>
@@ -58,7 +60,8 @@ export default {
   store,
   data(){
     return {
-      store,
+      company: store.state.company,
+      myInfo: store.state.myInfo,
       selected: [],
     }
   },
@@ -106,7 +109,24 @@ export default {
       }
     },
     toPay() {
+      store.commit("syncState", {
+        stateName: "orderTemp",
+        stateValue: {
+          order_owner: this.myInfo.name,
+          order_id: ~~(Math.random()*1000000),
+          phone: 18888885555,
+          status: '待付款',
+          totalPrice: this.totalPrice,
+          time: Intl.DateTimeFormat('en-US',{
+            hour: 'numeric', minute: 'numeric', second: 'numeric',
+            hour12: false
+          }).format(),
+          list: store.state.selectList.filter((arr,i)=> this.selected.map(i=>(Number(i))).includes(i))
+        }
+      });
+      store.commit("syncSession", "orderTemp");
 
+      router.push(`/${this.company}/statement`)
     },
     deleted(e) {
       store.state.selectList = store.state.selectList.filter( (e,i) => !this.selected.includes(i) );

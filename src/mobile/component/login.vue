@@ -78,7 +78,10 @@ export default {
           userName: document.querySelector("#username").value,
           passWord: document.querySelector("#password").value,
           avatarUrl: "",
-          address: []
+          address: {
+            default: '',
+            container: [],
+          }
         }
       });
       store.commit("syncSession", "myInfo");

@@ -69,9 +69,9 @@ const Statement = resolve => require(["@/mobile/component/statement"], resolve);
 
 // 商品活动列表页面
 const Activity = resolve => require(["@/mobile/component/activity"], resolve);
+
 // 商品活动详情页面
-const Activitydetail = resolve =>
-  require(["@/mobile/component/activitydetail"], resolve);
+const Activitydetail = resolve => require(["@/mobile/component/activity"], resolve);
 
 const Pages = {
   fst: {

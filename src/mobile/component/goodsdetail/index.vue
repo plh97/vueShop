@@ -93,8 +93,7 @@ export default {
   },
   computed: {
     home: () => store.state.list,
-    detail: () =>
-      store.state.list.find(arr => arr.id == router.currentRoute.query.goodId)
+    detail: () => store.state.list.find(arr => arr.id == router.currentRoute.query.goodId)
   },
   created() {
     store.commit("list");

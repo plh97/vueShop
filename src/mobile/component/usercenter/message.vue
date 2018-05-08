@@ -63,7 +63,8 @@
         <router-link class="router-avator" tag="li" :to="`/${company}/address`">
 					<label>地址管理</label>
 					<span class="right-part">
-            <input :value="$store.state.myInfo.address" @input="save($event.target.value , 'address')" type="textarea" name="address">
+            <span>{{defaultAddress}}</span>
+            <!-- <input :value="" type="textarea" name="address"> -->
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-arrowright"></use>
             </svg>
@@ -99,7 +100,12 @@ export default {
     };
   },
   computed: {
-    defaultImg: () => store.state.defaultImg
+    defaultImg: () => store.state.defaultImg,
+    defaultAddress: () => {
+      return (typeof store.state.myInfo.address.default === "number" && store.state.myInfo.address.default>=0) ?
+        store.state.myInfo.address.container[store.state.myInfo.address.default].address:
+        '点击设置默认地址'
+    } 
   },
   methods: {
     save(val, id) {
@@ -116,8 +122,6 @@ export default {
 </script>
 <style  lang="scss">
 @import "~@/assets/common/dpr.scss";
-.message {
-}
 .msg-body {
   height: calc(100vh - 80rem/75);
   background: #f5f5f5;

@@ -1,6 +1,6 @@
 <template>
   <div class="modifypwd">
-    <v-Header title="修改密码" option="" />
+    <v-Header title="修改密码" option="" :leftBackTo="-1"/>
     <div class="content">
       <p>
         <svg class="icon" aria-hidden="true">
