@@ -5,6 +5,7 @@ const http = require('http');
 // const fs = require('graceful-fs');
 const bodyParser = require('koa-bodyparser');
 const koaSend = require('koa-send');
+const axios = require('axios');
 const koaStatic = require('koa-static');
 
 // local
@@ -44,10 +45,9 @@ server.listen(port, () => {
 
 
 
-
 // 专用于加载静态图片资源
-static
-  .use(koaStatic('./'))
+static.use(koaStatic('./'))
+
 const staticServer = http.createServer(static.callback());
 staticServer.listen(9090, () => {
   console.log(` >>> 静态资源端口: ${9090}`);
