@@ -7,7 +7,10 @@
 3. [钢琴效果展示](https://work.pipk.top/music)
 4. [2048](https://work.pipk.top/2048)
 5. [vue版本购物商城](https://work.pipk.top)（请在移动端下访问）
-
+6. [聊天室](https://chat.pipk.top)
+7. [github 数据生成报告](https://github.com/pengliheng/github-report.git)
+8. [个人博客](https://github.com/pengliheng/github.pengliheng.io)
+9. [UI组件](https://github.com/pengliheng/component)
 
 
 
