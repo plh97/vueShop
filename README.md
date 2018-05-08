@@ -1,3 +1,16 @@
+### 前言
+为了展示作品
+
+### 作品
+1. [粒子时钟](https://work.pipk.top/clock)
+2. [贪吃蛇小游戏](https://work.pipk.top/snake)
+3. [钢琴效果展示](https://work.pipk.top/music)
+4. [2048](https://work.pipk.top/2048)
+5. [vue版本购物商城](https://work.pipk.top)（请在移动端下访问）
+
+
+
+
 ### 项目目录
 ```js
 项目根目录
