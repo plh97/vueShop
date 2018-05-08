@@ -25,14 +25,14 @@ module.exports = env => [
     }
   ),
   // 移动端打包配置
-  // merge(
-  //   baseConfig,
-  //   mobileConfig,
-  //   env.NODE_ENV === 'dev' ? devWebpack : prodWebpack,
-  //   {
-  //     plugins: [
-  //       new CleanWebpackPlugin(['dist/mobile'])
-  //     ]
-  //   }
-  // )
+  merge(
+    baseConfig,
+    mobileConfig,
+    env.NODE_ENV === 'dev' ? devWebpack : prodWebpack,
+    {
+      plugins: [
+        new CleanWebpackPlugin(['dist/mobile'])
+      ]
+    }
+  )
 ];
