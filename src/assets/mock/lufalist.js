@@ -7,8 +7,8 @@ var data = Mock.mock(/api\/lufalist$/, {
   msg: '获取成功.',
   'rows|40-50': [{
     'id|+1': 66141,
-    'goods_image': Random.image('500x500', '@colorful', 'lufa 主'),
-    'goods_image_list|3-5': [ Random.image('500x300', '@colorful', 'lufa详') ],
+    'goods_image': Random.image('500x500', '@color', 'lufa 主'),
+    'goods_image_list|3-5': [ Random.image('500x300', '@color', 'lufa详') ],
     'goods_code|+54': Number('002003019'),
     'new_price': 0.0,
     'goods_name|1': [

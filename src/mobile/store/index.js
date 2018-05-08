@@ -62,12 +62,12 @@ export default new Vuex.Store({
 
     list: async state => {
       if(state.list.length !== 0) return;
-      state.list = await api.getStore({url: `${state.company}list`})
+      state.list = await api.getStore({url: `/api/${state.company}list`})
     },
 
     orderlist: async state => {
       if(state.orderlist.length !== 0) return;
-      // state.orderlist = await api.getOrderlist({url: `${state.company}orderlist`})
+      state.orderlist = await api.getOrderlist({url: `api/${state.company}orderlist`})
     },
   }
 });

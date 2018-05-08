@@ -7,8 +7,8 @@ var data = Mock.mock(/api\/zhuogaolist$/, {
   msg: '获取成功.',
   'rows|40-50': [{
     'id|+1': 66141,
-    'goods_image': Random.image('500x500', '@colorful', 'zhuogao主'),
-    'goods_image_list|1-5': [ Random.image('500x500', '@colorful', 'zhuogao详') ],
+    'goods_image': Random.image('500x500', '@color', 'zhuogao主'),
+    'goods_image_list|1-5': [ Random.image('500x500', '@color', 'zhuogao详') ],
     'new_price': 0.0,
     'goods_name': '卓高机器',
     'goods_code|+54': Number('003003019'),

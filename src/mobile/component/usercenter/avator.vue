@@ -75,7 +75,8 @@ export default {
       formData.append("file", file);
       this.$ajax({
         method: 'post',
-        url: 'http://192.168.1.9:3005/upload',
+        url: '/upload',
+        // url: 'http://192.168.1.9:3005/upload',
         data: formData,
       }).then(res => {
         store.commit('syncState',{
