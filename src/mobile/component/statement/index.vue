@@ -122,6 +122,11 @@ export default {
         store.state.myInfo.address.container[store.state.myInfo.address.default].address : '点击选择收货地址'
     }
   },
+  methods:{
+    submitOrder(){
+      console.log('to submit something');
+    }
+  }
 };
 </script>
 

@@ -1,3 +1,19 @@
+### 前言
+为了展示作品
+
+### 作品
+1. [粒子时钟](https://work.pipk.top/clock)
+2. [贪吃蛇小游戏](https://work.pipk.top/snake)
+3. [钢琴效果展示](https://work.pipk.top/music)
+4. [2048](https://work.pipk.top/2048)
+5. [vue版本购物商城](https://work.pipk.top)（请在移动端下访问）
+6. [聊天室](https://chat.pipk.top)
+7. [github 数据生成报告](https://github.com/pengliheng/github-report.git)
+8. [个人博客](https://github.com/pengliheng/github.pengliheng.io)
+9. [UI组件](https://github.com/pengliheng/component)
+
+
+
 ### 项目目录
 ```js
 项目根目录

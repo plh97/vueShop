@@ -8,9 +8,9 @@ export default {
         //两个请求现在都完成
         resolve(
           res.data.rows
-            // .map(arr => Object.assign({}, arr, {
-            //   goods_image: arr.goods_image.replace(/#/, '')
-            // }))
+            .map(arr => Object.assign({}, arr, {
+              goods_image: arr.goods_image.replace(/#/, '')
+            }))
         );
       }).catch(err=>reject(err))
     })
@@ -21,11 +21,14 @@ export default {
         //两个请求现在都完成
         resolve(
           res.data.rows
-            // .map(arr => Object.assign({}, arr, {
-            //   goods_image: arr.goods_image.replace(/#/, '')
-            // }))
+            .map(arr => Object.assign({}, arr, {
+              goods_image: arr.goods_image.replace(/#/, '')
+            }))
         );
       }).catch(err=>reject(err))
     })
+  },
+  auth(){
+    return 'success'
   }
 }

@@ -7,7 +7,7 @@
 </template>
 
 <style lang="scss" scoped>
-.zhuogao{
-	margin-bottom: (100rem/75);
-}
+// .zhuogao{
+// 	margin-bottom: (100rem/75);
+// }
 </style>
