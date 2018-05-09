@@ -8,9 +8,15 @@ var data = Mock.mock(/api\/zhuogaolist$/, {
   'rows|40-50': [{
     'id|+1': 66141,
     'goods_image': Random.image('500x500', '@colorful', 'zhuogao主'),
-    'goods_image_list|1-5': [ Random.image('500x500', '@colorful', 'zhuogao详') ],
+    'goods_image_list|1-5': [ Random.image('500x300', '@colorful', 'zhuogao详') ],
     'new_price': 0.0,
-    'goods_name': '卓高机器',
+    'goods_name|1': [
+      '卓高钻石',
+      '卓高洗发液',
+      '卓高代练',
+      '卓高情趣',
+      '卓高网咖'
+    ],
     'goods_code|+54': Number('003003019'),
     'goods_short_name': '',
     'brand_id|+1': 19,
