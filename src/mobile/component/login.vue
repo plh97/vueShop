@@ -10,7 +10,7 @@
       <span class="title">{{company}}登录</span>
       <span class="option"></span>
     </header>
-    <img class="logo" src="~@/assets/images/fst/fst_logo.png" alt="">
+    <img class="logo" src="https://static.pipk.top/vueshop/public/images/fst/fst_logo.png">
     <form v-on:submit.prevent>
       <div class="login-box">
         <label>
@@ -101,7 +101,7 @@ body {
 }
 .login {
   @include dpr-fz(20px);
-  background: url("https://static.pipk.top/vueShop/public/images/fst/bg_login.png") no-repeat center/100% 100%;
+  background: url("https://static.pipk.top/vueshop/public/images/fst/bg_login.png") no-repeat center/100% 100%;
   min-height: 100vh;
   .header {
     left: 0;

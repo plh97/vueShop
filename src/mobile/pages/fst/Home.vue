@@ -1,20 +1,20 @@
 <template>
 	<div class="home">
 		<div class="header">
-			<span class="logo"><img src="@/assets/images/fst/logo.png"></span>
+			<span class="logo"><img src="https://static.pipk.top/vueshop/public/images/fst/logo.png"></span>
 		   <input type="text"  placeholder="请输入商品名称" id="search">
-		   <span class="seek" id="seekd"><img src="@/assets/images/fst/seek.png"></span>
-		   <span class="seek" id="seeks" @click="seek()"><img src="@/assets/images/fst/seek.png"></span>
+		   <span class="seek" id="seekd"><img src="https://static.pipk.top/vueshop/public/images/fst/seek.png"></span>
+		   <span class="seek" id="seeks" @click="seek()"><img src="https://static.pipk.top/vueshop/public/images/fst/seek.png"></span>
 		</div>
 		<mt-swipe :auto="4000">
 			<mt-swipe-item>
-				<img src="@/assets/images/fst/f1.png" :onerror="defaultImg"/>
+				<img src="https://static.pipk.top/vueshop/public/images/fst/f1.png" :onerror="defaultImg"/>
 			</mt-swipe-item>
 			<mt-swipe-item>
-				<img src="@/assets/images/fst/f2.png" :onerror="defaultImg"/>
+				<img src="https://static.pipk.top/vueshop/public/images/fst/f2.png" :onerror="defaultImg"/>
 			</mt-swipe-item>
 			<mt-swipe-item>
-				<img src="@/assets/images/fst/f3.png" :onerror="defaultImg"/>
+				<img src="https://static.pipk.top/vueshop/public/images/fst/f3.png" :onerror="defaultImg"/>
 			</mt-swipe-item>
 		</mt-swipe>
 			<div class="head-nav">
@@ -40,7 +40,7 @@
 			</ul>
 		</div>
     <router-link class="activity" tag="div" :to="`/${company}/activity`">
-      <img src="@/assets/images/fst/activity.png">
+      <img src="https://static.pipk.top/vueshop/public/images/fst/activity.png">
     </router-link>
 		<div class="content">
 			<h3>法塞特家族</h3>
@@ -54,7 +54,7 @@
 					</div>
 				</router-link>
 			</ul>
-			<span class="more" @click="toggle()">
+			<span class="more" @click="toggle">
 				更多 
 				<svg class="icon" aria-hidden="true">
 						<use xlink:href="#icon-more"></use>
@@ -73,7 +73,7 @@
 					</div>
 				</router-link>
 			</ul>
-			<span class="more" @click="toggle2()">
+			<span class="more" @click="toggle2">
 				更多 
 				<svg class="icon" aria-hidden="true">
 					<use xlink:href="#icon-more"></use>
@@ -216,7 +216,7 @@ export default {
       text-align: center;
       font-family: HiraginoSansGB-W3;
       font-weight: bold;
-      background: url("~@/assets/images/fst/mb-title.png") no-repeat center;
+      background: url("https://static.pipk.top/vueshop/public/images/fst/mb-title.png") no-repeat center;
       background-size: contain;
       width: 70%;
       margin: 0 auto;
