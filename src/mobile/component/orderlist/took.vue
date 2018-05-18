@@ -28,12 +28,9 @@
             共件商品 合计：￥<span></span>
           </div>
           <div class="options">
-            
-
             <router-link class="detail" tag="button" :to="`/${company}/orderdetail?orderid=${orderItem.order_id}`">
               查看订单
             </router-link>
-
             <!-- <button class="delete">删除</button>
             <button class="pay">付款</button> -->
             <!-- <button class="return">退货</button> -->
@@ -43,7 +40,6 @@
 			</li>
 		</ul>
 		<!-- {{fstorderlist}} -->
-		
 	</section>
 </template>
 <script>

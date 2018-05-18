@@ -165,7 +165,7 @@ export default {
       }
       label {
         @include dpr-fz(32px);
-        color: #666666;
+        color: #666;
       }
       &:first-child {
         height: (120rem/75);

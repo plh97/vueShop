@@ -155,7 +155,7 @@
 
     span {
       flex: 0 0 25vw;
-      color: #999999;
+      color: #999;
       height: (100rem/75);
       @include flex-center();
       flex-direction: column;

@@ -219,14 +219,8 @@ const {
 						assortList.push(item)
 					}
 				})
-				
-				console.log(dataId)
 				this.good_list = assortList
 			},
-
-
-
-
 
 			handleAllEventProxy(e){
 				const isToggleDom = isIdInPathFunc({

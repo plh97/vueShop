@@ -67,7 +67,7 @@ export default {
     save(){
       if(this.addressId){
         let address = {
-          id: ~~(Math.random()*100000000)
+          id: ~~(Math.random()*100000)
         };
         [...document.querySelectorAll('input')].forEach( dom => {
           if(dom.id !== 'default'){
