@@ -4,10 +4,13 @@
 	</div>
 </template>
 
+
 <script>
+'use strict';
+
+function a(){
+	console.log(this);
+}
+a()
 
 </script>
-
-<style lang="scss" scoped>
-
-</style>

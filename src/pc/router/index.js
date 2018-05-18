@@ -6,6 +6,10 @@ import Router from 'vue-router';
 const Clock = () => import('../pages/clock/index.vue');
 // 鹭法页面
 const Music = () => import('../pages/music/index.vue');
+// 贪吃蛇页面
+const Snake = () => import('../pages/snake/index.vue');
+// 2048页面
+const _2048 = () => import('../pages/2048/index.vue');
 // 公共组件
 const PageNotFound = () => import('../component/PageNotFound.vue');
 
@@ -17,6 +21,12 @@ const router = new Router({
   }, {
     path: '/music',
     component: Vue.component('index', Music)
+  }, {
+    path: '/snake',
+    component: Vue.component('index', Snake)
+  }, {
+    path: '/2048',
+    component: Vue.component('index', _2048)
   }, {
     path: '*',
     component: Vue.component('pageNotFound', PageNotFound)

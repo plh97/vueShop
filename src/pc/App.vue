@@ -1,18 +1,3 @@
 <template>
-    <div class="wrap">
-		<div class="container">
-			<router-view/>
-		</div>
-        <footer>
-            <p>© 2017道成科技技术支持, Inc. All rights reserved.</p>
-        </footer>
-	</div>
+	<router-view/>
 </template>
-
-
-<style lang="scss" scoped>
-
-body{
-	background-color: #ccc;
-}
-</style>

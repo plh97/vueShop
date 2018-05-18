@@ -1,11 +1,12 @@
 // package
 const Koa = require('koa');
 const http = require('http');
-// const axios = require('axios');
+const cors = require('@koa/cors');
 // const fs = require('graceful-fs');
 const bodyParser = require('koa-bodyparser');
 const koaSend = require('koa-send');
 const axios = require('axios');
+const session = require('koa-session');
 const koaStatic = require('koa-static');
 
 // local
@@ -42,6 +43,9 @@ server.listen(port, () => {
   console.log(` >>> port: ${port}`);
   console.log(` >>> ENV: ${process.env.NODE_ENV}`);
 });
+
+
+
 
 
 
