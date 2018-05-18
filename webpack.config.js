@@ -14,16 +14,16 @@ const mobileConfig = require('./build/device/webpack.mobile');
 module.exports = env => [
   // 如果不需要打包该项目，注释即可
   // pc端打包配置
-  merge(
-    baseConfig,
-    pcConfig,
-    env.NODE_ENV === 'dev' ? devWebpack : prodWebpack,
-    {
-      plugins: [
-        new CleanWebpackPlugin(['dist/pc'])
-      ]
-    }
-  ),
+  // merge(
+  //   baseConfig,
+  //   pcConfig,
+  //   env.NODE_ENV === 'dev' ? devWebpack : prodWebpack,
+  //   {
+  //     plugins: [
+  //       new CleanWebpackPlugin(['dist/pc'])
+  //     ]
+  //   }
+  // ),
   // 移动端打包配置
   merge(
     baseConfig,

@@ -101,7 +101,7 @@ body {
 }
 .login {
   @include dpr-fz(20px);
-  background: url("~@/assets/images/fst/bg_login.png") no-repeat center/100% 100%;
+  background: url("https://static.pipk.top/vueShop/public/images/fst/bg_login.png") no-repeat center/100% 100%;
   min-height: 100vh;
   .header {
     left: 0;
