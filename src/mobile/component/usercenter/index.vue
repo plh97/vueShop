@@ -167,7 +167,7 @@ export default {
 
   .user-header {
     height: (380rem/75);
-    background: url("~@/assets/images/fst/bu_cen.png") no-repeat center;
+    background: url("https://static.pipk.top/vueshop/public/images/fst/bu_cen.png") no-repeat center;
     background-size: 100%;
     .header-set {
       padding: (24rem/75) (24rem/75) 0 (24rem/75);
