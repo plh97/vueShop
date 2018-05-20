@@ -81,6 +81,9 @@ export default {
           address: {
             default: '',
             container: [],
+          },
+          account: {
+            balance: 1000
           }
         }
       });
