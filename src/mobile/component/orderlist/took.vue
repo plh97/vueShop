@@ -1,7 +1,7 @@
 <template>
 	<section class="took">
 		<ul class="lists">
-			<li class="list-item" v-for="(orderItem,i) in orderlist" :key='i'>
+			<li class="list-item" v-for="(orderItem,i) in orderlist" :key='i' v-if="orderItem.status === '待收货'">
 				<div class="lists-box">
           <div class="order-info">
             <div class="id-time">
@@ -18,8 +18,8 @@
                 <p>{{goodItem.weight}}&nbsp;&nbsp;{{goodItem.type}}</p>
               </div>
               <div class="price-num">
-                <p class="current-cost">￥{{goodItem.price}}</p>
-                <p class="prime-cost">￥2400.00</p>
+                <p class="current-cost">{{goodItem.primary_dealer_price*goodItem.num | currency}}</p>
+                <p class="prime-cost">{{goodItem.retail_price*goodItem.num | currency}}</p>
                 <p class="good-num">×{{goodItem.num}}</p>
               </div>
             </li>
@@ -31,15 +31,14 @@
             <router-link class="detail" tag="button" :to="`/${company}/orderdetail?orderid=${orderItem.order_id}`">
               查看订单
             </router-link>
-            <!-- <button class="delete">删除</button>
-            <button class="pay">付款</button> -->
-            <!-- <button class="return">退货</button> -->
+            <!-- <button class="delete">删除</button> -->
+            <!-- <button class="pay">付款</button> -->
+            <button class="return" @click="reback(orderItem)">退货</button>
             <button class="confirm">确认收货</button>
           </div>
 				</div>
 			</li>
 		</ul>
-		<!-- {{fstorderlist}} -->
 	</section>
 </template>
 <script>
@@ -54,8 +53,53 @@ export default {
   },
   computed: {
     defaultImg: () => store.state.defaultImg,
-    orderlist: () => store.state.orderlist.filter(arr => arr.status === "待收货"),
+    orderlist: () => store.state.orderlist.arr
   },
+  methods: {
+    delList(id) {
+      store.commit("syncState", {
+        stateName: "orderlist",
+        stateValue: {
+          arr: this.orderlist.filter(arr => arr.order_id !== id)
+        }
+      });
+      store.commit("syncSession", "orderlist");
+    },
+    reback(args){
+      this.$messagebox.confirm(`你确定要退订单${args.order_id}？`)
+        .then(action => {
+          this.$toast({
+            message: '退货成功',
+            position: 'top',
+            duration: 1000
+          });
+          // 修改当前订单 为 退货状态
+          store.commit("syncState", {
+            stateName: "orderlist",
+            stateValue: {
+              arr: this.orderlist.map(e => {
+                if(e.order_id === args.order_id){
+                  return Object.assign({},e,{
+                    status:'已退货'
+                  })
+                }
+                return e
+              })
+            }
+          });
+          store.commit("syncSession", "orderlist");
+          setTimeout(() => {
+            router.push(`/${this.company}/orderlist/return`);
+          }, 1000);
+        },err => {
+          this.$toast({
+            message: '感谢您的信任~',
+            position: 'top',
+            duration: 1000
+          });
+        })
+    }
+  }
 };
 </script>
 

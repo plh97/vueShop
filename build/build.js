@@ -46,8 +46,9 @@ server.listen(port, () => {
 
 
 // 专用于加载静态图片资源
-static.use(koaStatic('./'))
+// static.use(koaStatic('./'))
 
+<<<<<<< HEAD
 const staticServer = http.createServer(static.callback());
 staticServer.listen(9090, () => {
   console.log(` >>> 静态资源端口: ${9090}`);
@@ -55,3 +56,9 @@ staticServer.listen(9090, () => {
 
 
 
+=======
+// const staticServer = http.createServer(static.callback());
+// staticServer.listen(9080, () => {
+//   console.log(` >>> 静态资源端口: ${9090}`);
+// });
+>>>>>>> d0b3b539b88b3c1ad0d1b9bd843ae9d9d4f42b99

@@ -17,7 +17,7 @@
       <ul>
         <li>
           <label>收货人</label>
-          <input :value="detail.name" id="name" type="text" placeholder="不少于两个字">
+          <input :value="detail.name" id="name" type="text" placeholder="不少于两个字" minlength="2">
         </li>
         <li>
           <label>手机号码</label>
@@ -33,7 +33,7 @@
         </li>
         <li>
           <label>邮政编码</label>
-          <input :value="detail.email" id="email" type="text" placeholder="6位邮政编码">
+          <input :value="detail.email" id="email" type="text" placeholder="6位邮政编码" maxlength="6">
         </li>
         <li>
           <label for="default">
@@ -179,6 +179,7 @@ export default {
           width: (160rem/75);
           @include dpr-fz(32px);
           margin-right: (20rem/75);
+          display: inline-flex;
         }
 
         label[for="default"] {
@@ -188,6 +189,9 @@ export default {
         input {
           border: none;
           background: none;
+          height: 0.7rem;
+          padding: 0.1rem;
+          @include dpr-fz(28px);
         }
       }
     }

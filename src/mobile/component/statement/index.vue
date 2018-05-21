@@ -18,7 +18,7 @@
         <p>支付方式</p>
         <form for="pay_type">
           <label class="li" for="balance">
-            <input type="radio" name="radio" id="balance" value="true"/>
+            <input type="radio" name="radio" id="balance" value="true" checked="true"/>
             <div></div>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-available"></use>
@@ -104,6 +104,7 @@
 
 <script>
 import store from "@/mobile/store";
+import router from "@/mobile/router";
 import numFormat from "@/assets/common/dom"; //金额格式化
 export default {
   store,
@@ -122,10 +123,10 @@ export default {
       return (typeof store.state.myInfo.address.default === "number" && store.state.myInfo.address.default>=0) ?
         store.state.myInfo.address.container[store.state.myInfo.address.default].address : '点击选择收货地址'
     },
-    balance: ()=>store.state.myInfo.account.balance
+    balance: () => store.state.myInfo.account.balance,
   },
   methods:{
-    submitOrder(){
+    submitOrder() {
       let selectType = document.querySelector('input:checked').id;
       if(selectType ==='balance'){ // 选择余额支付
         if(store.state.myInfo.account.balance > this.detail.totalPrice){
@@ -148,17 +149,22 @@ export default {
                 duration: 1000
               });
               // 添加订单
-              this.addOrder({});
+              this.addOrder({status: '待收货'});
+              router.push(`/${this.company}/orderlist/took`);
+            },err=>{
+              this.addOrder({status: '待付款'});
+              router.push(`/${this.company}/orderlist/being`);
             })
-        }else{
+        } else {
           this.$toast({
             message: '余额不足',
             position: 'top',
             duration: 1000
           });
+          this.addOrder({status: '待付款'});
           return false;
         }
-      } else if(selectType === 'wx') {
+      } else if (selectType === 'wx') {
         this.$messagebox.confirm('确定要用微信支付吗？')
           .then(action => {
             this.$toast({
@@ -166,8 +172,14 @@ export default {
               position: 'top',
               duration: 1000
             });
+            // 添加订单
+            this.addOrder({status: '待收货'});
+            router.push(`/${this.company}/orderlist/took`);
+          },err=>{
+            this.addOrder({status: '待付款'});
+            router.push(`/${this.company}/orderlist/being`);
           })
-      } else if(selectType === 'alipay') {
+      } else if (selectType === 'alipay') {
         this.$messagebox.confirm('确定要用支付宝支付吗？')
           .then(action => {
             this.$toast({
@@ -175,8 +187,14 @@ export default {
               position: 'top',
               duration: 1000
             });
+            // 添加订单
+            this.addOrder({status: '待收货'});
+            router.push(`/${this.company}/orderlist/took`);
+          },err =>{
+            this.addOrder({status: '待付款'});
+            router.push(`/${this.company}/orderlist/being`);
           })
-      } else if(selectType === 'bank') {
+      } else if (selectType === 'bank') {
         this.$messagebox.confirm('确定要用银联支付吗？')
           .then(action => {
             this.$toast({
@@ -184,22 +202,77 @@ export default {
               position: 'top',
               duration: 1000
             });
+            // 添加订单
+            this.addOrder({status: '待收货'});
+            router.push(`/${this.company}/orderlist/took`);
+          },err => {
+            this.addOrder({status: '待付款'});
+            router.push(`/${this.company}/orderlist/being`);
           })
       }
     },
-    addOrder({}){
-      console.log('新增订单')
-      store.commit("syncState", {
-        stateName: "orderlist",
-        stateValue: [{
-
-        }]
-      });
+    addOrder({status}){
+      // 给订单详情添加一段数据
+      const isExist = store.state.orderlist.arr.find(a => a.order_id === this.detail.order_id);
+      if(isExist){
+        // 如果存在
+        store.commit("syncState", {
+          stateName: "orderlist",
+          stateValue: {
+            arr: store.state.orderlist.arr.map(e=>{
+              if(e.order_id === this.detail.order_id){
+                return Object.assign({},e,{
+                  status
+                })
+              }
+              return e
+            })
+          }
+        });
+      } else {
+        // 如果不存在
+        store.commit("syncState", {
+          stateName: "orderlist",
+          stateValue: {
+            arr: [
+              Object.assign({}, this.detail, {
+                status,
+                createTime: new Date(),
+                payTime: new Date(),
+                sendTime: '未定',
+                getTime: '未定',
+              }),
+              ...store.state.orderlist.arr
+            ]
+          }
+        });
+      }
       store.commit("syncSession", "orderlist");
+      // 清空确认订单缓冲内容
+      store.commit("syncState", {
+        stateName: "orderTemp",
+        stateValue: {
+          list:[],
+          order_id:'',
+          order_owner:'',
+          phone:'',
+          status:'',
+          time:'',
+          totalPrice:'',
+        }
+      });
+      store.commit("syncSession", "orderTemp");
     }
   },
+  created(){
+    const list = store.state.orderTemp.list;
+    if(list.length===0){
+      router.back(-1)
+    }
+  }
 };
 </script>
+
 
 <style lang="scss" scoped>
 @import "~@/assets/common/common.scss";

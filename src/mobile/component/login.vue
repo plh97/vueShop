@@ -71,10 +71,13 @@ export default {
         userName: document.querySelector("#username").value,
         passWord: document.querySelector("#password").value
       });
+
+      console.log('myInfo');
+      
       store.commit("syncState", {
         stateName: "myInfo",
         stateValue: {
-          name: "你猜??",
+          name: document.querySelector("#username").value,
           userName: document.querySelector("#username").value,
           passWord: document.querySelector("#password").value,
           avatarUrl: "",
@@ -82,8 +85,8 @@ export default {
             default: '',
             container: [],
           },
-          account: {
-            balance: 1000
+          account:{
+            balance: 99999
           }
         }
       });

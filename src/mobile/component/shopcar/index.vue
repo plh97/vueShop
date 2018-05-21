@@ -11,7 +11,7 @@
         :id="i"
         class="left-part"
         v-model="selected"
-        v-for="(item,i) in $store.state.selectList"
+        v-for="(item,i) in $store.state.selectList.arr"
       >
         <img class="good-img" :src="item.goods_image" :onerror="defaultImg" >
         <div class="right-part">
@@ -80,19 +80,19 @@ export default {
   computed: {
     defaultImg: () => store.state.defaultImg,
     totalPrice: function(e) {
-      return store.state.selectList
+      return store.state.selectList.arr
         .filter((arr,i)=> this.selected.map(i=>(Number(i))).includes(i))
         .reduce((total , arr) => total + arr.num * arr.retail_price , 0)
     } 
   },
   methods: {
     add(num) {
-      store.state.selectList[num].num += 1;
+      store.state.selectList.arr[num].num += 1;
       store.commit('syncSession','selectList');
     },
     reduce(num){
-      if (store.state.selectList[num].num === 1) return;
-      store.state.selectList[num].num -= 1;
+      if (store.state.selectList.arr[num].num === 1) return;
+      store.state.selectList.arr[num].num -= 1;
       store.commit('syncSession','selectList');
     },
     selectAll(e,a) {
@@ -109,33 +109,50 @@ export default {
       }
     },
     toPay() {
+      let list = this.selected
+      if(list.length === 0){
+        this.$toast({
+          message: '请选择商品',
+          position: 'top',
+          duration: 1000
+        });
+        return false;
+      }
       store.commit("syncState", {
         stateName: "orderTemp",
         stateValue: {
           order_owner: this.myInfo.name,
           order_id: ~~(Math.random()*1000000),
-          phone: 18888885555,
+          phone: 18825142583,
           status: '待付款',
           totalPrice: this.totalPrice,
-          time: Intl.DateTimeFormat('en-US',{
-            hour: 'numeric', minute: 'numeric', second: 'numeric',
-            hour12: false
-          }).format(),
-          list: store.state.selectList.filter((arr,i)=> this.selected.map(i=>(Number(i))).includes(i))
+          // time: Intl.DateTimeFormat('en-US',{
+          //   hour: 'numeric', minute: 'numeric', second: 'numeric',
+          //   hour12: false
+          // }).format(),
+          time: (new Date()).toLocaleString('ja-JP-u-ca-china'),
+          list: store.state.selectList.arr.filter((arr,i)=> this.selected.map(i=>(Number(i))).includes(i))
         }
       });
       store.commit("syncSession", "orderTemp");
-
+      // 给购物车清空对应商品
+      store.commit("syncState", {
+        stateName: "selectList",
+        stateValue: {
+          arr: store.state.selectList.arr.filter((arr,i) => !this.selected.map(i=> (Number(i))).includes(i))
+        }
+      });
+      store.commit("syncSession", "selectList");
       router.push(`/${this.company}/statement`)
     },
     deleted(e) {
-      store.state.selectList = store.state.selectList.filter( (e,i) => !this.selected.includes(i) );
-      // this.selected = [];
+      store.commit("syncState", {
+        stateName: "selectList",
+        stateValue: {
+          arr: store.state.selectList.arr.filter( (e,i) => !this.selected.includes(i) )
+        }
+      });
       store.commit('syncSession','selectList');
-      // store.commit("syncState", {
-      //   stateName: "selectList",
-      //   stateValue: [...store.state.selectList].filter( (e,i) => !that.selected.includes(i) ),
-      // });
     }
   }
 }

@@ -197,7 +197,7 @@ export default {
     return {
       foo: "foo",
       show: false,
-      list: store.state.selectList
+      list: store.state.selectList.arr
     };
   },
   methods: {
@@ -211,7 +211,7 @@ export default {
       }
     },
     add() {
-      const isExist = store.state.selectList.find(
+      const isExist = store.state.selectList.arr.find(
         arr => arr.goods_name === this.goodInfo.goods_name
       );
       if (isExist) {
@@ -219,13 +219,18 @@ export default {
         isExist.num += 1;
       } else {
         // 新增
-        store.state.selectList.push(
+        store.state.selectList.arr.push(
           Object.assign({}, this.goodInfo, {
             num: 1
           })
         );
       }
-      this.message(`添加一件${this.goodInfo.goods_name}成功~！`);
+      this.$toast({
+        message: `添加一件${this.goodInfo.goods_name}成功~！`,
+        position: 'top',
+        duration: 10000
+      });
+      // this.message(`添加一件${this.goodInfo.goods_name}成功~！`);
       store.commit("syncSession", "selectList");
     }
   }

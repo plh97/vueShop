@@ -138,6 +138,7 @@ export default {
         color: #666666;
       }
       .content-hobby {
+        padding: 0.1rem;
         @include dpr-fz(32px);
         color: #999;
         display: block;

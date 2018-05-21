@@ -30,9 +30,6 @@ export default {
       company: store.state.company,
     };
   },
-  mounted() {
-    store.commit("orderlist");
-  }
 };
 </script>
 

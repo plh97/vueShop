@@ -2,7 +2,7 @@
 	<section class="return">
 
 		<ul class="lists">
-			<li class="list-item" v-for="(orderItem,i) in orderlist" :key='i'>
+			<li class="list-item" v-for="(orderItem,i) in orderlist" :key='i' v-if="orderItem.status === '已退货'">
 				<div class="lists-box">
           <div class="order-info">
             <div class="id-time">
@@ -19,8 +19,8 @@
                 <p>{{goodItem.weight}}&nbsp;&nbsp;{{goodItem.type}}</p>
               </div>
               <div class="price-num">
-                <p class="current-cost">￥{{goodItem.price}}</p>
-                <p class="prime-cost">￥2400.00</p>
+                <p class="current-cost">{{goodItem.primary_dealer_price*goodItem.num | currency}}</p>
+                <p class="prime-cost">{{goodItem.retail_price*goodItem.num | currency}}</p>
                 <p class="good-num">×{{goodItem.num}}</p>
               </div>
             </li>
@@ -34,15 +34,14 @@
             <router-link class="detail" tag="button" :to="`/${company}/orderdetail?orderid=${orderItem.order_id}`">
               查看订单
             </router-link>
-            <!-- <button class="delete">删除</button>
-            <button class="pay">付款</button> -->
-            <button class="return">退货</button>
+            <button class="delete">删除</button>
+            <!-- <button class="pay">付款</button> -->
+            <!-- <button class="return">退货</button> -->
             <!-- <button class="confirm">确认收货</button> -->
           </div>
 				</div>
 			</li>
 		</ul>
-		<!-- {{fstorderlist}} -->
 		
 	</section>
 </template>
@@ -58,8 +57,19 @@ export default {
   },
   computed: {
     defaultImg: () => store.state.defaultImg,
-    orderlist: () => store.state.orderlist.filter(arr => arr.status === "已退货")
+    orderlist: () => store.state.orderlist.arr
   },
+  methods: {
+    delList(id) {
+      store.commit("syncState", {
+        stateName: "orderlist",
+        stateValue: {
+          arr: this.orderlist.filter(arr => arr.order_id !== id)
+        }
+      });
+      store.commit("syncSession", "orderlist");
+    }
+  }
 };
 </script>
 
