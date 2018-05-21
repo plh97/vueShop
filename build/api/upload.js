@@ -17,7 +17,7 @@ const Upload = async (ctx, next) => {
     if(env === 'dev'){
       return `http://localhost:9080/public/${name}`
     } else {
-      return `http://pipk.top:9090/public/${name}`;
+      return `https://static.pipk.top/vueshop/public/${name}`;
     }
   } 
   ctx.body = await Promise.all(file.map(async (image) => {
