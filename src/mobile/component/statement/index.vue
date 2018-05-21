@@ -124,7 +124,6 @@ export default {
         store.state.myInfo.address.container[store.state.myInfo.address.default].address : '点击选择收货地址'
     },
     balance: () => store.state.myInfo.account.balance,
-    totalNum: () => store.state.orderTemp.list.reduce((total , arr) => total + arr.num , 0),
   },
   methods:{
     submitOrder() {
@@ -214,21 +213,40 @@ export default {
     },
     addOrder({status}){
       // 给订单详情添加一段数据
-      store.commit("syncState", {
-        stateName: "orderlist",
-        stateValue: {
-          arr: [
-            Object.assign({}, this.detail, {
-              status,
-              createTime: new Date(),
-              payTime: new Date(),
-              sendTime: '未定',
-              getTime: '未定',
-            }),
-            ...store.state.orderlist.arr
-          ]
-        }
-      });
+      const isExist = store.state.orderlist.arr.find(a => a.order_id === this.detail.order_id);
+      if(isExist){
+        // 如果存在
+        store.commit("syncState", {
+          stateName: "orderlist",
+          stateValue: {
+            arr: store.state.orderlist.arr.map(e=>{
+              if(e.order_id === this.detail.order_id){
+                return Object.assign({},e,{
+                  status
+                })
+              }
+              return e
+            })
+          }
+        });
+      } else {
+        // 如果不存在
+        store.commit("syncState", {
+          stateName: "orderlist",
+          stateValue: {
+            arr: [
+              Object.assign({}, this.detail, {
+                status,
+                createTime: new Date(),
+                payTime: new Date(),
+                sendTime: '未定',
+                getTime: '未定',
+              }),
+              ...store.state.orderlist.arr
+            ]
+          }
+        });
+      }
       store.commit("syncSession", "orderlist");
       // 清空确认订单缓冲内容
       store.commit("syncState", {

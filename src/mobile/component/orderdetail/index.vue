@@ -7,8 +7,8 @@
           <use xlink:href="#icon-address"></use>
         </svg>
         <div>
-          <span>广东省珠海市香洲区香洲区府阳光大厦二楼2112室 (香洲区府)</span>
-          <p> {{detail.order_owner}} &nbsp;&nbsp; {{detail.phone}} </p> 
+          <span>{{defaultAddress.address}}</span>
+          <p> {{defaultAddress.name}} &nbsp;&nbsp; {{defaultAddress.phone}} </p> 
         </div>
       </div>
       <div class="lists-box">
@@ -31,18 +31,11 @@
         </div>
         <div class="options">
           <label class="order-status">{{detail.status}}</label>
-          
-          <button class="delete">
-            删除
-          </button>
-          
-          <router-link class="pay" tag="button" :to="`/${company}/statement`">
-            付款
-          </router-link>
+          <button class="delete" @click="delList(detail.order_id)">删除</button>
 
-          <!-- <button class="pay">付款</button> -->
-          <!-- <button class="return">退货</button>
-          <button class="confirm">确认收货</button> -->
+          <button class="pay" @click="toPay" v-if="detail.status === '待付款'">付款</button>
+          <button class="return" v-if="detail.status === '已收货'">退货</button>
+          <button class="confirm" v-if="detail.status === '待收货'">确认收货</button>
         </div>
       </div>
 
@@ -50,7 +43,7 @@
         <ul>
           <li>
             <label>商品总价</label>
-            <span>{{detail.totalPrice | currency}}</span>
+            <span>{{detail | currency}}</span>
           </li>
           <li>
             <label>运费（快递）</label>
@@ -58,7 +51,7 @@
           </li>
           <li>
             <label>优惠金额</label>
-            <span>￥62,800.00</span>
+            <span>{{detail.totalPrice - detail.list.reduce((tot,arr) => tot+ arr.primary_dealer_price*arr.num  ,0) | currency }}</span>
           </li>
           <li class="last-line">
             <label>实付款</label>
@@ -103,6 +96,7 @@ export default {
   store,
   data() {
     return {
+      myInfo: store.state.myInfo,
       company: store.state.company
     };
   },
@@ -114,10 +108,35 @@ export default {
       .reduce((tot, arr)=> tot + Number(arr.num),0),
     orderlist: () => store.state.orderlist.arr,
     defaultImg: () => store.state.defaultImg,
+    defaultAddress: () => {
+      return (typeof store.state.myInfo.address.default === "number" && store.state.myInfo.address.default >= 0) ?
+        store.state.myInfo.address.container[store.state.myInfo.address.default] : {address:'地址还未设置'}
+    }
   },
 	created() {
 		store.commit('orderlist');
 	},
+  methods: {
+    delList(id) {
+      store.commit("syncState", {
+        stateName: "orderlist",
+        stateValue: {
+          arr: this.orderlist.filter(arr => arr.order_id !== id)
+        }
+      });
+      store.commit("syncSession", "orderlist");
+      router.push(`/${this.company}/orderlist/all`);
+    },
+    toPay() {
+      // 给你一次重新选择的机会
+      store.commit("syncState", {
+        stateName: "orderTemp",
+        stateValue: this.detail,
+      });
+      store.commit("syncSession", "orderTemp");
+      router.push(`/${this.company}/statement`)
+    },
+  }
 };
 </script>
 
@@ -136,8 +155,9 @@ export default {
       padding: 0.2rem 3vw;
       @include dpr-fz(32px);
       display: flex;
-      justify-content: center;
       align-items: flex-start;
+      justify-content: flex-start;
+
       svg {
         color: #c83c3b;
         margin: 0.1rem;

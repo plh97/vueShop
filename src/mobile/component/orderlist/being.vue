@@ -19,8 +19,8 @@
                 <p>{{goodItem.weight}}&nbsp;&nbsp;{{goodItem.type}}</p>
               </div>
               <div class="price-num">
-                <p class="current-cost">￥{{goodItem.price}}</p>
-                <p class="prime-cost">￥2400.00</p>
+                <p class="current-cost">{{goodItem.primary_dealer_price*goodItem.num | currency}}</p>
+                <p class="prime-cost">{{goodItem.retail_price*goodItem.num | currency}}</p>
                 <p class="good-num">×{{goodItem.num}}</p>
               </div>
             </li>
@@ -34,9 +34,9 @@
               查看订单
             </router-link>
             <button class="delete" @click="delList(orderItem.order_id)">删除</button>
-            <button class="pay">付款</button>
-            <!-- <button class="return">退货</button>
-            <button class="confirm">确认收货</button> -->
+            <button class="pay" @click="toPay(orderItem)">付款</button>
+            <!-- <button class="return">退货</button> -->
+            <!-- <button class="confirm">确认收货</button> -->
           </div>
 				</div>
 			</li>
@@ -67,7 +67,16 @@ export default {
         }
       });
       store.commit("syncSession", "orderlist");
-    }
+    },
+    toPay(orderItem) {
+      // 给你一次重新选择的机会
+      store.commit("syncState", {
+        stateName: "orderTemp",
+        stateValue: orderItem
+      });
+      store.commit("syncSession", "orderTemp");
+      router.push(`/${this.company}/statement`)
+    },
   }
 };
 </script>
