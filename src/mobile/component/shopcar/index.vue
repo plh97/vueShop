@@ -126,10 +126,11 @@ export default {
           phone: 18825142583,
           status: '待付款',
           totalPrice: this.totalPrice,
-          time: Intl.DateTimeFormat('en-US',{
-            hour: 'numeric', minute: 'numeric', second: 'numeric',
-            hour12: false
-          }).format(),
+          // time: Intl.DateTimeFormat('en-US',{
+          //   hour: 'numeric', minute: 'numeric', second: 'numeric',
+          //   hour12: false
+          // }).format(),
+          time: (new Date()).toLocaleString('ja-JP-u-ca-china'),
           list: store.state.selectList.arr.filter((arr,i)=> this.selected.map(i=>(Number(i))).includes(i))
         }
       });

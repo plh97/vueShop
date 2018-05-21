@@ -225,7 +225,12 @@ export default {
           })
         );
       }
-      this.message(`添加一件${this.goodInfo.goods_name}成功~！`);
+      this.$toast({
+        message: `添加一件${this.goodInfo.goods_name}成功~！`,
+        position: 'top',
+        duration: 10000
+      });
+      // this.message(`添加一件${this.goodInfo.goods_name}成功~！`);
       store.commit("syncSession", "selectList");
     }
   }

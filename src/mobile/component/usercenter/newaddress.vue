@@ -191,6 +191,7 @@ export default {
           background: none;
           height: 0.7rem;
           padding: 0.1rem;
+          @include dpr-fz(28px);
         }
       }
     }
