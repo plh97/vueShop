@@ -4,6 +4,7 @@ const path = require('path');
 // const merge = require('webpack-merge');
 // const WebpackBar = require('webpackbar');
 // const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // local
@@ -64,4 +65,10 @@ module.exports = {
       ],
     }],
   },
+  plugins: [
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
+  ]
 };
