@@ -7,7 +7,6 @@ yarn-error.log*
 package-lock.json*
 package.json*
 
-dist/
 
 # Editor directories and files
 .idea
