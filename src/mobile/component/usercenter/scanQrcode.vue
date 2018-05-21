@@ -14,7 +14,7 @@
 	.content{
     width: 100vw;
     height: calc(100vh - 80rem/75);
-		background: url('~@/assets/images/affiliate.jpg') no-repeat center/100% 100%;
+		background: url('https://static.pipk.top/vueshop/public/images/affiliate.jpg') no-repeat center/100% 100%;
 	}
 }
 </style>

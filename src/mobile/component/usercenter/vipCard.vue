@@ -3,7 +3,7 @@
 		<v-Header title="我的会员卡" backto="usercenter"/>
 		<div class="code-body">
 			<div class="bg-border">
-        <img class="card" src="~@/assets/images/lufa/shareus_vip.png" alt="">
+        <img class="card" src="https://static.pipk.top/vueshop/public/images/lufa/shareus_vip.png" alt="">
         <div class="vip-info-box">
           <div class="vip-info">
             <img class="avator-img" :src="myInfo.avatarUrl" :onerror="defaultImg">
@@ -50,7 +50,7 @@ export default {
       max-height: (1150rem/75);
       width: (700rem/75);
       margin: 0 auto;
-      background: url("~@/assets/images/lufa/bu_shareus.png") no-repeat
+      background: url("https://static.pipk.top/vueshop/public/images/lufa/bu_shareus.png") no-repeat
         center/100% 100%;
       .card {
         display: block;

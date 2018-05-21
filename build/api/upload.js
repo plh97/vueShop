@@ -15,7 +15,7 @@ const Upload = async (ctx, next) => {
   const env = process.env.NODE_ENV;
   const url = name => {
     if(env === 'dev'){
-      return `http://localhost:9090/public/${name}`
+      return `http://localhost:9080/public/${name}`
     } else {
       return `http://pipk.top:9090/public/${name}`;
     }

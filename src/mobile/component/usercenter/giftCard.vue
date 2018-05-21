@@ -53,13 +53,13 @@
         height: (240rem/75);
         margin-top: 0.2rem;
         &:nth-child(3n+1){
-          background: url('~@/assets/images/gift_pic0.png') no-repeat center/100% 100%;
+          background: url('https://static.pipk.top/vueshop/public/images/gift_pic0.png') no-repeat center/100% 100%;
         }
         &:nth-child(3n+2){
-          background: url('~@/assets/images/gift_pic1.png') no-repeat center/100% 100%;
+          background: url('https://static.pipk.top/vueshop/public/images/gift_pic1.png') no-repeat center/100% 100%;
         }
         &:nth-child(3n){
-          background: url('~@/assets/images/gift_pic2.png') no-repeat center/100% 100%;
+          background: url('https://static.pipk.top/vueshop/public/images/gift_pic2.png') no-repeat center/100% 100%;
         }
         .gift-box{
           position: relative;

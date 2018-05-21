@@ -252,7 +252,6 @@ export default {
       background-color: #fff;
 
       .title {
-        //
         display: inline-flex;
         align-items: center;
         height: (46rem/75);

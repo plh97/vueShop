@@ -10,7 +10,7 @@
       <span class="title">{{company}}登录</span>
       <span class="option"></span>
     </header>
-    <img class="logo" src="~@/assets/images/fst/fst_logo.png" alt="">
+    <img class="logo" src="https://static.pipk.top/vueshop/public/images/fst/fst_logo.png">
     <form v-on:submit.prevent>
       <div class="login-box">
         <label>
@@ -77,7 +77,7 @@ export default {
       store.commit("syncState", {
         stateName: "myInfo",
         stateValue: {
-          name: "你猜??",
+          name: document.querySelector("#username").value,
           userName: document.querySelector("#username").value,
           passWord: document.querySelector("#password").value,
           avatarUrl: "",
@@ -107,7 +107,7 @@ body {
 }
 .login {
   @include dpr-fz(20px);
-  background: url("~@/assets/images/fst/bg_login.png") no-repeat center/100% 100%;
+  background: url("https://static.pipk.top/vueshop/public/images/fst/bg_login.png") no-repeat center/100% 100%;
   min-height: 100vh;
   .header {
     left: 0;

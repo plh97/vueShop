@@ -20,14 +20,14 @@
               <p>{{list.weight}}&nbsp;&nbsp;{{list.wine_type}}</p>
             </div>
             <div class="price-num">
-              <p class="current-cost">{{list.real_price | currency}}</p>
-              <p class="prime-cost">{{list.price | currency}}</p>
+              <p class="current-cost">{{list.primary_dealer_price * list.num | currency}}</p>
+              <p class="prime-cost">{{list.retail_price * list.num | currency}}</p>
               <p class="good-num">×{{list.num}}</p>
             </div>
           </li>
         </ul>
         <div class="amount">
-          共件商品 合计：￥<span></span>
+          共件{{totalNum}}商品 合计:{{detail.totalPrice | currency}}
         </div>
         <div class="options">
           <label class="order-status">{{detail.status}}</label>
@@ -50,7 +50,7 @@
         <ul>
           <li>
             <label>商品总价</label>
-            <span>￥62,800.00</span>
+            <span>{{detail.totalPrice | currency}}</span>
           </li>
           <li>
             <label>运费（快递）</label>
@@ -62,10 +62,11 @@
           </li>
           <li class="last-line">
             <label>实付款</label>
-            <span>￥62,800.00</span>
+            <span>{{detail.totalPrice | currency}}</span>
           </li>
         </ul>
       </div>
+
       <div class="id-time">
         <ul>  
           <li class="first-line">
@@ -74,19 +75,19 @@
           </li>
           <li>
             <label>创建时间：</label>
-            <span>2017-11-20  17:30:45</span>
+            <span>{{detail.createTime}}</span>
           </li>
           <li>
             <label>付款时间：</label>
-            <span>2017-11-20  17:30:45</span>
+            <span>{{detail.payTime}}</span>
           </li>
           <li>
             <label>发货时间：</label>
-            <span>2017-11-20  17:30:45</span>
+            <span>{{detail.sendTime}}</span>
           </li>
           <li>
             <label>成交时间：</label>
-            <span>2017-11-20  17:30:45</span>
+            <span>{{detail.getTime}}</span>
           </li>
         </ul>
       </div>
@@ -106,8 +107,12 @@ export default {
     };
   },
   computed: {
-		detail: () => store.state.orderlist.find(arr => arr.order_id == router.currentRoute.query.orderid),
-    orderlist: () => store.state.orderlist,
+		detail: () => store.state.orderlist.arr.find(arr => arr.order_id == router.currentRoute.query.orderid),
+    totalNum: () => store.state.orderlist.arr
+      .find(arr => arr.order_id == router.currentRoute.query.orderid)
+      .list
+      .reduce((tot, arr)=> tot + Number(arr.num),0),
+    orderlist: () => store.state.orderlist.arr,
     defaultImg: () => store.state.defaultImg,
   },
 	created() {

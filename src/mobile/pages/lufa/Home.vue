@@ -13,13 +13,13 @@
 		</div>
 		<mt-swipe :auto="4000">
 			<mt-swipe-item>
-				<img :src="require(`@/assets/images/lufa/一周恋味${dpr}.png`)" :onerror="defaultImg"/>
+				<img :src="`https://static.pipk.top/vueshop/public/images/lufa/一周恋味${dpr}.png`" :onerror="defaultImg"/>
 			</mt-swipe-item>
 			<mt-swipe-item>
-				<img :src="require(`@/assets/images/lufa/一周恋味${dpr}.png`)" :onerror="defaultImg"/>
+				<img :src="`https://static.pipk.top/vueshop/public/images/lufa/一周恋味${dpr}.png`" :onerror="defaultImg"/>
 			</mt-swipe-item>
 			<mt-swipe-item>
-				<img :src="require(`@/assets/images/lufa/一周恋味${dpr}.png`)" :onerror="defaultImg"/>
+				<img :src="`https://static.pipk.top/vueshop/public/images/lufa/一周恋味${dpr}.png`" :onerror="defaultImg"/>
 			</mt-swipe-item>
 		</mt-swipe>
 		<div class="head-nav">
@@ -81,24 +81,24 @@
 				</svg>
       </div>
       <div class="sort-lists">
-        <img class="cover" src="@/assets/images/lufa/倾国倾城.png" :onerror="defaultImg">
+        <img src="https://static.pipk.top/vueshop/public/images/lufa/倾国倾城.png" class="cover" :onerror="defaultImg">
 				<ul>
 					<li>
-						<img src="@/assets/images/lufa/眉采飞扬.png" :onerror="defaultImg">
+						<img src="https://static.pipk.top/vueshop/public/images/lufa/眉采飞扬.png" :onerror="defaultImg">
 					</li>
 					<li>
-						<img src="@/assets/images/lufa/极致美肤.png" :onerror="defaultImg">
+						<img src="https://static.pipk.top/vueshop/public/images/lufa/极致美肤.png" :onerror="defaultImg">
 					</li>
 					<li>
-						<img src="@/assets/images/lufa/唇语诱惑.png" :onerror="defaultImg">
+						<img src="https://static.pipk.top/vueshop/public/images/lufa/唇语诱惑.png" :onerror="defaultImg">
 					</li>
 					<li>
-						<img src="@/assets/images/lufa/更多分类.png" :onerror="defaultImg">
+						<img src="https://static.pipk.top/vueshop/public/images/lufa/更多分类.png" :onerror="defaultImg">
 					</li>
 				</ul>
 			</div>
 			<div class="activity">
-				<img src="@/assets/images/lufa/横图.png" :onerror="defaultImg">
+				<img src="https://static.pipk.top/vueshop/public/images/lufa/横图.png" :onerror="defaultImg">
 			</div>     
     </div>
 		<div class="content">
@@ -363,8 +363,9 @@ export default {
   }
 
 	.content {
-		   margin-top: (20rem/75);
-		   background: #fff;
+		margin-top: (20rem/75);
+		background: #fff;
+
 		h3 {
 			height:(120rem/75);
 			line-height: (120rem/75);
@@ -373,7 +374,7 @@ export default {
 			text-align: center;
 			// font-family: HiraginoSansGB-W3;
 			font-weight: bold;
-			background: url('~@/assets/images/lufa/mb-title.png') no-repeat center;
+			background: url('https://static.pipk.top/vueshop/public/images/lufa/mb-title.png') no-repeat center;
 			background-size: contain;
 			width: 70%;
 			margin: 0 auto;

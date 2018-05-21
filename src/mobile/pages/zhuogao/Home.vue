@@ -14,13 +14,13 @@
 		</div>
 		<mt-swipe :auto="4000">
 			<mt-swipe-item>
-				<img src="@/assets/images/fst/f1.png" :onerror="defaultImg"/>
+				<img src="https://static.pipk.top/vueshop/public/images/fst/f1.png" :onerror="defaultImg"/>
 			</mt-swipe-item>
 			<mt-swipe-item>
-				<img src="@/assets/images/fst/f2.png" :onerror="defaultImg"/>
+				<img src="https://static.pipk.top/vueshop/public/images/fst/f2.png" :onerror="defaultImg"/>
 			</mt-swipe-item>
 			<mt-swipe-item>
-				<img src="@/assets/images/fst/f3.png" :onerror="defaultImg"/>
+				<img src="https://static.pipk.top/vueshop/public/images/fst/f3.png" :onerror="defaultImg"/>
 			</mt-swipe-item>
 		</mt-swipe>
 			<div class="head-nav">
@@ -235,12 +235,12 @@ export default {
 			text-align: center;
 			font-family: HiraginoSansGB-W3;
 			font-weight: bold;
-			background: url('~@/assets/images/fst/mb-title.png') no-repeat center;
+			background: url('https://static.pipk.top/vueshop/public/images/fst/mb-title.png') no-repeat center;
 			background-size: contain;
 			width: 70%;
 			margin: 0 auto;
 		}
-		ul{
+		ul {
 			margin: 0;
 			padding: 0;
 			display: flex;
@@ -249,44 +249,45 @@ export default {
 			list-style: none;
 			justify-content: space-around;
 			margin: 0 (14rem/75);
-            padding-bottom: (30rem/75);
-            border-bottom: 1px solid #EEEEEE;
+			padding-bottom: (30rem/75);
+			border-bottom: 1px solid #eee;
+
 			li {
 				text-align: left;
 				width: 48%;
 				height: (492rem/75);
 				border: (2rem/75) solid #EEEEEE;
-                margin-bottom: (10rem/75);
-				img{
+				margin-bottom: (10rem/75);
+				img {
 					min-height: 30vw;
 					width: 100%;
 					height: (300rem/75);
 				}
-				.list-news{
+				.list-news {
 					height: (180rem/75);
 					padding: (20rem/75);
 					@include dpr-fz(28px);
 					background: #F5F5F5;
 					font-family: HiraginoSansGB-W3;
-                    .news-name{
+					.news-name{
 						color: #333333;
 						white-space: nowrap;
 						text-overflow: ellipsis;
 						overflow: hidden;
 						display: inherit;
-				    }
-				   p{
+					}
+					p {
 						@include dpr-fz(22px);
 						color: #999999;
-				   }
-				   .news-retail{
+					}
+					.news-retail{
 						color: #B84747;
 						display: inherit;
 						margin-top: (17rem/75);
 						padding-top: (16rem/75);
 						width: 100%;
 						border-top: 1px solid #D9D9D9;
-				    }
+					}
 				}
 			}
 		}

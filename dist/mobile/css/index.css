@@ -1968,34 +1968,7 @@
 
 .mintui-field-success:before {
   content: "\E609"; }
-var map = {
-	"./一周恋味.png": "../src/assets/images/lufa/一周恋味.png",
-	"./一周恋味@1x.png": "../src/assets/images/lufa/一周恋味@1x.png",
-	"./一周恋味@2x.png": "../src/assets/images/lufa/一周恋味@2x.png",
-	"./一周恋味@3x.png": "../src/assets/images/lufa/一周恋味@3x.png"
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	var module = __webpack_require__(id);
-	return module;
-}
-function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) { // check for number or string
-		var e = new Error('Cannot find module "' + req + '".');
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return id;
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "../src/assets/images/lufa sync recursive ^\\.\\/一周恋味.*\\.png$";/*Create by Li Weijian on 2018.01.25*/
+/*Create by Li Weijian on 2018.01.25*/
 body,
 div,
 dl,

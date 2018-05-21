@@ -15,17 +15,17 @@
               <img class="goodImg" :src="goodItem.goods_image" :onerror="defaultImg">
               <div class="good-info">
                 <h1>{{goodItem.goods_name}}</h1>
-                <p>{{goodItem.weight}}&nbsp;&nbsp;{{goodItem.type}}</p>
+                <p>{{goodItem.standard_name}}&nbsp;&nbsp;{{goodItem.type}}</p>
               </div>
               <div class="price-num">
-                <p class="current-cost">￥{{goodItem.price}}</p>
-                <p class="prime-cost">￥2400.00</p>
+                <p class="current-cost">{{goodItem.primary_dealer_price*goodItem.num | currency}}</p>
+                <p class="prime-cost">{{goodItem.retail_price*goodItem.num | currency}}</p>
                 <p class="good-num">×{{goodItem.num}}</p>
               </div>
             </li>
           </ul>
           <div class="amount">
-            共件商品 合计：￥<span></span>
+            共件商品 合计：{{orderItem.totalPrice | currency}}
           </div>
           <div class="options">
 
@@ -33,7 +33,7 @@
               查看订单
             </router-link>
 
-            <button class="delete">删除</button>
+            <button class="delete" @click="delList(orderItem.order_id)">删除</button>
             <!-- <button class="pay">付款</button> -->
             <!-- <button class="return">退货</button>
             <button class="confirm">确认收货</button> -->
@@ -55,8 +55,19 @@ export default {
   },
   computed: {
     defaultImg: () => store.state.defaultImg,
-    orderlist: () => store.state.orderlist
+    orderlist: () => store.state.orderlist.arr
   },
+  methods: {
+    delList(id) {
+      store.commit("syncState", {
+        stateName: "orderlist",
+        stateValue: {
+          arr: this.orderlist.filter(arr => arr.order_id !== id)
+        }
+      });
+      store.commit("syncSession", "orderlist");
+    }
+  }
 };
 </script>
 

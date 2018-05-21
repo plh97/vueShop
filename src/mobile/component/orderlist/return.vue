@@ -2,7 +2,7 @@
 	<section class="return">
 
 		<ul class="lists">
-			<li class="list-item" v-for="(orderItem,i) in orderlist" :key='i'>
+			<li class="list-item" v-for="(orderItem,i) in orderlist" :key='i' v-if="orderItem.status === '已退货'">
 				<div class="lists-box">
           <div class="order-info">
             <div class="id-time">
@@ -42,7 +42,6 @@
 				</div>
 			</li>
 		</ul>
-		<!-- {{fstorderlist}} -->
 		
 	</section>
 </template>
@@ -58,8 +57,19 @@ export default {
   },
   computed: {
     defaultImg: () => store.state.defaultImg,
-    orderlist: () => store.state.orderlist.filter(arr => arr.status === "已退货")
+    orderlist: () => store.state.orderlist.arr
   },
+  methods: {
+    delList(id) {
+      store.commit("syncState", {
+        stateName: "orderlist",
+        stateValue: {
+          arr: this.orderlist.filter(arr => arr.order_id !== id)
+        }
+      });
+      store.commit("syncSession", "orderlist");
+    }
+  }
 };
 </script>
 

@@ -138,6 +138,7 @@ export default {
         color: #666666;
       }
       .content-hobby {
+        padding: 0.1rem;
         @include dpr-fz(32px);
         color: #999;
         display: block;
@@ -165,7 +166,7 @@ export default {
       }
       label {
         @include dpr-fz(32px);
-        color: #666666;
+        color: #666;
       }
       &:first-child {
         height: (120rem/75);

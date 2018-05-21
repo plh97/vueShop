@@ -155,7 +155,7 @@
 
     span {
       flex: 0 0 25vw;
-      color: #999999;
+      color: #999;
       height: (100rem/75);
       @include flex-center();
       flex-direction: column;
@@ -197,7 +197,7 @@ export default {
     return {
       foo: "foo",
       show: false,
-      list: store.state.selectList
+      list: store.state.selectList.arr
     };
   },
   methods: {
@@ -211,7 +211,7 @@ export default {
       }
     },
     add() {
-      const isExist = store.state.selectList.find(
+      const isExist = store.state.selectList.arr.find(
         arr => arr.goods_name === this.goodInfo.goods_name
       );
       if (isExist) {
@@ -219,7 +219,7 @@ export default {
         isExist.num += 1;
       } else {
         // 新增
-        store.state.selectList.push(
+        store.state.selectList.arr.push(
           Object.assign({}, this.goodInfo, {
             num: 1
           })
