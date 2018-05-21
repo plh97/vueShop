@@ -75,9 +75,9 @@ export default {
       formData.append("file", file);
       this.$ajax({
         method: 'post',
-        url: '/upload',
-        // url: 'http://192.168.1.9:3005/upload',
+        url: 'https://api.pipk.top/upload',
         data: formData,
+        withCredentials: true
       }).then(res => {
         store.commit('syncState',{
           stateName: 'myInfo',
