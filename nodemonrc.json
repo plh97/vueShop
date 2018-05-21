@@ -10,6 +10,6 @@
     ],
     "env": {
         "NODE_ENV": "dev",
-        "PORT": "80"
+        "PORT": "8080"
     }
 }

@@ -71,6 +71,9 @@ export default {
         userName: document.querySelector("#username").value,
         passWord: document.querySelector("#password").value
       });
+
+      console.log('myInfo');
+      
       store.commit("syncState", {
         stateName: "myInfo",
         stateValue: {
@@ -81,6 +84,9 @@ export default {
           address: {
             default: '',
             container: [],
+          },
+          account:{
+            balance: 99999
           }
         }
       });
