@@ -20,6 +20,9 @@
 9. [2048](https://work.pipk.top/2048)
 
 
+###### 如何缓存用户密码账号 git config credential.helper store
+
+
 
 ### 项目目录
 ```js
