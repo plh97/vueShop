@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "w": "webpack --color --progress --env.NODE_ENV=dev -w",
-    "p": "webpack --color --progress --env.NODE_ENV=prod -p",
+    "p": "webpack --color --progress --env.NODE_ENV=prod -p -w",
     "nodemon": "nodemon ./build/build.js --config nodemonrc.json",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
@@ -17,6 +17,7 @@
     "@koa/cors": "2",
     "animate.css": "^3.6.1",
     "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",

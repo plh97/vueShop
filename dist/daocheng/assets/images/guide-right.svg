@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" 
+	xmlns="http://www.w3.org/2000/svg"
+	width="200px" 
+	height="70px" 
+	viewBox="0 0 260 120"
+	preserveAspectRatio="xMidYMid meet">
+	<circle class="shallow" cx="24" cy="95" r="25" fill="#dedede" stroke="#dedede"/>
+	<circle class="deep" cx="24" cy="95" r="15" fill="#b9b9b9" stroke="#b9b9b9"/>
+	<polyline points="26 92 126 3 270 3" stroke="#b9b9b9" stroke-width="6"
+		stroke-linecap="butt" fill="#b9b9b9" stroke-linejoin="round"/>
+</svg>
