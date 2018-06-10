@@ -8,16 +8,16 @@
 为了展示作品
 
 ### 作品
-1. [粒子时钟](https://work.pipk.top/clock)(pc端观看)
-2. [贪吃蛇小游戏](https://work.pipk.top/snake)(pc端观看)
-3. [vue版本购物商城](https://work.pipk.top)（请在移动端下访问）
-4. [github 数据生成报告](https://github.com/pengliheng/github-report)
-4. [道成官网](https://work.pipk.top/daocheng)(pc观看)
-5. [UI组件](https://github.com/pengliheng/component)
-6. [个人博客](https://pipk.top)
-7. [聊天室](https://chat.pipk.top)
-8. [钢琴效果展示](https://work.pipk.top/music)
-9. [2048](https://work.pipk.top/2048)
+- [x] [粒子时钟](https://work.pipk.top/clock)(pc端观看)
+- [x] [贪吃蛇小游戏](https://work.pipk.top/snake)(pc端观看)
+- [x] [vue版本购物商城](https://work.pipk.top)（请在移动端下访问）
+- [x] [github 数据生成报告](https://github.com/pengliheng/github-report)
+- [x] [某司官网](https://work.pipk.top/daocheng)(pc观看)
+- [x] [UI组件](https://github.com/pengliheng/component)
+- [x] [个人博客](https://pipk.top)
+- [x] [聊天室](https://chat.pipk.top)
+- [x] [2048](https://work.pipk.top/2048)
+- [x] [酒瓶子](https://work.pipk.top/canvas)
 
 
 ###### 如何缓存用户密码账号 git config credential.helper store
