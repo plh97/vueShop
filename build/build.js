@@ -25,19 +25,39 @@ app
   .use(allRouter.routes())
   .use(allRouter.allowedMethods())
   .use(bodyParser())
-  .use(koaStatic('dist'))
   // 将前端路由指向 index.html
   .use(async (ctx, next) => {
-    const isMobile = ctx.request.header['user-agent'].match(/Mobile/);
-    // 将项目全部转发到这里
-    if (isMobile) {
-      console.log(` >>> 界面端: 移动端`);
-      await koaSend(ctx, 'index.html', { root: `./dist/mobile` });
+
+    if (!/\./.test(ctx.request.url)) {
+      const isMobile = ctx.request.header['user-agent'].match(/Mobile/);
+      // 将项目全部转发到这里
+      if (isMobile) {
+        console.log(` >>> 界面端: 移动端`);
+        if(ctx.url === '/canvas'){
+          await koaSend(ctx, 'index.html', { root: `./dist/canvas` });
+        }else if(ctx.url === '/daocheng'){
+          ctx.body = '<h1>请在pc端浏览该页面！</h1>'
+        }else{
+          await koaSend(ctx, 'index.html', { root: `./dist/mobile` });
+        }
+      } else {
+        console.log(` >>> 界面端: pc端`,ctx.url);
+        if(ctx.url === '/daocheng'){
+          await koaSend(ctx, 'index.html', { root: `./dist/daocheng` });
+        }else if(ctx.url === '/canvas'){
+          await koaSend(ctx, 'index.html', { root: `./dist/canvas` });
+        }else{
+          await koaSend(ctx, 'index.html', { root: `./dist/pc` });
+        }
+      }
     } else {
-      console.log(` >>> 界面端: pc端`);
-      await koaSend(ctx, 'index.html', { root: `./dist/pc` });
+      await next();
     }
-  });
+  })
+  .use(koaStatic('dist'))
+
+
+
 
 server.listen(port, () => {
   console.log(` >>> port: ${port}`);
