@@ -20,7 +20,6 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      // '@': 'https://static.pipk.top/vueShop/public/images',
       '@': resolve('src'),
     },
   },

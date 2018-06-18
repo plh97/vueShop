@@ -35,9 +35,11 @@ app
         console.log(` >>> 界面端: 移动端`);
         if(ctx.url === '/canvas'){
           await koaSend(ctx, 'index.html', { root: `./dist/canvas` });
-        }else if(ctx.url === '/daocheng'){
+        } else if (ctx.url === '/daocheng'){
           ctx.body = '<h1>请在pc端浏览该页面！</h1>'
-        }else{
+        } else if (ctx.url === '/2048'){
+          ctx.body = '<h1>请在pc端浏览该页面！</h1>'
+        } else {
           await koaSend(ctx, 'index.html', { root: `./dist/mobile` });
         }
       } else {
