@@ -97,6 +97,7 @@ export default {
     });
     document.addEventListener('touchstart',(start)=>{
       const moveFunc = (move) => {
+        move.preventDefault();
         const dx = move.touches[0].clientX -  start.touches[0].clientX;
         const dy = move.touches[0].clientY -  start.touches[0].clientY;
         if(dx>100){
