@@ -30,7 +30,7 @@
           v-for="(e,i) in rocks" 
           :key="i"
           :style="`
-            transform: translate(${(e?e.x:0) * 150}px, ${(e?e.y:0) * 150}px);
+            transform: translate(${cssTransition(e)});
             display: ${e?'':'none'}
           `"
         >
@@ -54,6 +54,7 @@
 
 <script>
 // import $ from '@pengliheng/jquery'
+// transform: translate();
 const by = name => (o, p) => {
   const a = o[name];
   const b = p[name];
@@ -97,7 +98,8 @@ export default {
     });
     document.addEventListener('touchstart',(start)=>{
       const moveFunc = (move) => {
-        move.preventDefault();
+        console.log(move);
+        move && move.preventDefault();
         const dx = move.touches[0].clientX -  start.touches[0].clientX;
         const dy = move.touches[0].clientY -  start.touches[0].clientY;
         if(dx>100){
@@ -121,6 +123,16 @@ export default {
     })
   },
   methods: {
+    isMobile() {
+      return window.navigator.userAgent.match(/Mobile/)
+    },
+    cssTransition(e) {
+      if(this.isMobile()){
+        return `${(e?e.x:0) * 23.5}vw, ${(e?e.y:0) * 23.5}vw`
+      }else {
+        return `${(e?e.x:0) * 150}px, ${(e?e.y:0) * 150}px`
+      }
+    },
     init(){
       this.rocks = [];
       this.scort = 0;
@@ -309,15 +321,25 @@ export default {
   margin-bottom: -27%;
 }
 
+body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .layout {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+  overflow: auto;
+
 
   header {
     display: flex;
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     padding: 20px;
     flex-direction: row;
     justify-content: space-around;
@@ -398,6 +420,41 @@ export default {
           justify-content: center;
           animation-fill-mode: backwards;
           animation: appear 200ms ease-in-out;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  html,body{
+    overflow: hidden;
+  }
+  .layout{
+    overflow: hidden;
+    header {
+      span{
+        width: 70px;
+      }
+      button {
+        padding: 10px 15px;
+      }
+    }
+    .all-container {
+      margin: 2vw;
+      width: 96vw;
+      height: 96vw;
+
+      .background,.container {
+        width: 96vw;
+        height: 96vw;
+        box-sizing: border-box;
+        padding: 1vw;
+        & > span,.list {
+          width: 21vw;
+          height: 21vw;
+          margin: 1vw;
+          font-size: 8vw;
         }
       }
     }
