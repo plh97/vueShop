@@ -79,7 +79,8 @@ export default {
         512: "#0444BF",
         1024: "#A79674",
         2048: "#282726"
-      }
+      },
+      directX: 30,
     };
   },
   mounted() {
@@ -102,16 +103,16 @@ export default {
         move && move.preventDefault();
         const dx = move.touches[0].clientX -  start.touches[0].clientX;
         const dy = move.touches[0].clientY -  start.touches[0].clientY;
-        if(dx>100){
+        if(dx> this.directX){
           this.turn('right');
           document.removeEventListener('touchmove',moveFunc)
-        }else if(dx<-100){
+        }else if(dx<-this.directX){
           this.turn('left');
           document.removeEventListener('touchmove',moveFunc)
-        }else if(dy>100){
+        }else if(dy>this.directX){
           this.turn('down');
           document.removeEventListener('touchmove',moveFunc)
-        }else if(dy<-100){
+        }else if(dy<-this.directX){
           this.turn('up');
           document.removeEventListener('touchmove',moveFunc)
         }
