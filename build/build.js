@@ -16,7 +16,6 @@ const allRouter = require('./api/index.js');
 
 // application
 const app = new Koa();
-const static = new Koa();
 // const router = new Router();
 const port = process.env.PORT || config.port;
 const server = http.createServer(app.callback());
@@ -27,7 +26,6 @@ app
   .use(bodyParser())
   // 将前端路由指向 index.html
   .use(async (ctx, next) => {
-
     if (!/\./.test(ctx.request.url)) {
       const isMobile = ctx.request.header['user-agent'].match(/Mobile/);
       // 将项目全部转发到这里
@@ -38,7 +36,7 @@ app
         } else if (ctx.url === '/daocheng'){
           ctx.body = '<h1>请在pc端浏览该页面！</h1>'
         } else if (ctx.url === '/2048'){
-          ctx.body = '<h1>请在pc端浏览该页面！</h1>'
+          await koaSend(ctx, 'index.html', { root: `./dist/pc` });
         } else {
           await koaSend(ctx, 'index.html', { root: `./dist/mobile` });
         }
@@ -58,19 +56,7 @@ app
   })
   .use(koaStatic('dist'))
 
-
-
-
 server.listen(port, () => {
   console.log(` >>> port: ${port}`);
   console.log(` >>> ENV: ${process.env.NODE_ENV}`);
 });
-
-
-// 专用于加载静态图片资源
-// static.use(koaStatic('./'))
-
-// const staticServer = http.createServer(static.callback());
-// staticServer.listen(9080, () => {
-//   console.log(` >>> 静态资源端口: ${9090}`);
-// });

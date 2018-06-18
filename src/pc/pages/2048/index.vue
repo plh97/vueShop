@@ -1,41 +1,48 @@
 <template>
-  <div>
-    <div class="background">
-      <span class="list-0-0"></span>
-      <span class="list-0-1"></span>
-      <span class="list-0-2"></span>
-      <span class="list-0-3"></span>
-      <span class="list-1-0"></span>
-      <span class="list-1-1"></span>
-      <span class="list-1-2"></span>
-      <span class="list-1-3"></span>
-      <span class="list-2-0"></span>
-      <span class="list-2-1"></span>
-      <span class="list-2-2"></span>
-      <span class="list-2-3"></span>
-      <span class="list-3-0"></span>
-      <span class="list-3-1"></span>
-      <span class="list-3-2"></span>
-      <span class="list-3-3"></span>
-    </div>
-    <div class="container">
-      <span 
-        class="list"
-        v-for="(e,i) in rocks" 
-        :key="i"
-        :style="`
-          transform: translate(${(e?e.x:0) * 150}px, ${(e?e.y:0) * 150}px);
-          display: ${e?'':'none'}
-        `"
-      >
+  <div class="layout">
+    <header>
+      <span class="scort">总分：{{scort}}</span>
+      <button class="star" @click="init">New Game</button>
+      <span class="sd"></span>
+    </header>
+    <div class="all-container">
+      <div class="background">
+        <span class="list-0-0"></span>
+        <span class="list-0-1"></span>
+        <span class="list-0-2"></span>
+        <span class="list-0-3"></span>
+        <span class="list-1-0"></span>
+        <span class="list-1-1"></span>
+        <span class="list-1-2"></span>
+        <span class="list-1-3"></span>
+        <span class="list-2-0"></span>
+        <span class="list-2-1"></span>
+        <span class="list-2-2"></span>
+        <span class="list-2-3"></span>
+        <span class="list-3-0"></span>
+        <span class="list-3-1"></span>
+        <span class="list-3-2"></span>
+        <span class="list-3-3"></span>
+      </div>
+      <div class="container">
         <span 
-          class="inner"
-          :id="`r${e&&e.id}`"
-          :style="`backgroundColor: ${e ? e.color : ''}`"
+          class="list"
+          v-for="(e,i) in rocks" 
+          :key="i"
+          :style="`
+            transform: translate(${(e?e.x:0) * 150}px, ${(e?e.y:0) * 150}px);
+            display: ${e?'':'none'}
+          `"
         >
-          {{e? e.num:''}}
+          <span 
+            class="inner"
+            :id="`r${e&&e.id}`"
+            :style="`backgroundColor: ${e ? e.color : ''}`"
+          >
+            {{e? e.num:''}}
+          </span>
         </span>
-      </span>
+      </div>
     </div>
     <!-- <div class="show">
       <p v-for="(e,i) in rocks" :key="i">
@@ -47,7 +54,7 @@
 
 <script>
 // import $ from '@pengliheng/jquery'
-window.by = name => (o, p) => {
+const by = name => (o, p) => {
   const a = o[name];
   const b = p[name];
   return a < b ? -1 : 1;
@@ -57,20 +64,8 @@ const dely = ms => new Promise(res => setTimeout(res, ms));
 export default {
   data() {
     return {
-      // 存储数字
-      rocks: [
-        // null,
-        // null,
-        // null,
-        // null,
-        // { x: 3, y: 1, num: 2, id: 10, color: "#eee4da", canCalc:true },
-        // { x: 3, y: 2, num: 2, id: 1, color: "#eee4da", canCalc:true },
-        // { x: 3, y: 3, num: 4, id: 3, color: "#ede0c8", canCalc:true },
-        // { x: 2, y: 1, num: 2, id: 8, color: "#eee4da", canCalc:true },
-        // { x: 1, y: 1, num: 2, id: 6, color: "#eee4da", canCalc:true },
-        // { x: 0, y: 1, num: 2, id: 11, color: "#eee4da", canCalc:true },
-        // { x: 0, y: 3, num: 4, id: 9, color: "#ede0c8", canCalc:true },
-      ],
+      scort:0,
+      rocks: [],
       color: {
         2: "#eee4da",
         4: "#ede0c8",
@@ -88,8 +83,7 @@ export default {
   },
   mounted() {
     window.app = this;
-    this.add();
-    this.add();
+    this.init();
     document.addEventListener("keydown", e => {
       if (e.key === "ArrowRight") {
         this.turn('right');
@@ -101,8 +95,37 @@ export default {
         this.turn('up');
       }
     });
+    document.addEventListener('touchstart',(start)=>{
+      const moveFunc = (move) => {
+        const dx = move.touches[0].clientX -  start.touches[0].clientX;
+        const dy = move.touches[0].clientY -  start.touches[0].clientY;
+        if(dx>100){
+          this.turn('right');
+          document.removeEventListener('touchmove',moveFunc)
+        }else if(dx<-100){
+          this.turn('left');
+          document.removeEventListener('touchmove',moveFunc)
+        }else if(dy>100){
+          this.turn('down');
+          document.removeEventListener('touchmove',moveFunc)
+        }else if(dy<-100){
+          this.turn('up');
+          document.removeEventListener('touchmove',moveFunc)
+        }
+      }
+      document.addEventListener('touchmove',moveFunc)
+      document.addEventListener('touchend',()=>{
+        document.removeEventListener('touchmove',moveFunc)
+      })
+    })
   },
   methods: {
+    init(){
+      this.rocks = [];
+      this.scort = 0;
+      this.add();
+      this.add();
+    },
     random24() {
       return ~~(Math.random() * 2) * 2 + 2;
     },
@@ -124,6 +147,22 @@ export default {
       });
       if (_isExist) return;
       return result;
+    },
+    // 是否游戏结束
+    isGameOver() {
+      const result = this.isFull() && this.rocks
+        .filter(e=>e && (e.x!==3 || e.y !==3))
+        .find(e=>{
+          const nextX = this.isExist({x:e.x+1, y:e.y});
+          const nextY = this.isExist({x:e.x, y:e.y+1});
+          return e.num === (nextX&&nextX.num) ||
+          e.num === (nextY&&nextY.num)
+        })
+      if(result === undefined){
+        return true;
+      }else{
+        return false;
+      }
     },
     // 是否满了
     isFull() {
@@ -209,6 +248,12 @@ export default {
         } else {
           console.log("没有移动，不用添加");
         }
+        setTimeout(() => {
+          if(this.isGameOver()){
+            alert('游戏结束！')
+            // this.init();
+          }
+        }, 0);
       });
     },
     // 处理移动距离的函数
@@ -221,6 +266,7 @@ export default {
           // 3个条件，不为null，
           this.handleDirect(direct).handleMove(e)
           e.num*=2;
+          this.scort+=e.num;
           e.canCalc = false;
           e.color=this.color[e.num]
           const dom = document.querySelector(`#r${e.id}`)
@@ -262,56 +308,96 @@ export default {
   margin-bottom: -27%;
 }
 
-div {
+.layout {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
-  .background,
-  .container {
-    box-sizing: content-box;
-    flex: 0 0 600px;
-    background-color: #bbada0;
-    display: inline-flex;
-    flex-wrap: wrap;
-    padding: 10px;
-    justify-content: space-between;
-    border-radius: 10px;
+  header {
+    display: flex;
     width: 600px;
-    position: absolute;
-    z-index: -1;
-
-    & > span {
-      background-color: #eee4da59;
-      margin: 10px;
-      width: 130px;
-      height: 130px;
+    padding: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    
+    button {
+      border: none;
+      background: #8f7a66;
+      color: #fff;
+      font-size: 20px;
+      padding: 10px 30px;
+      cursor: pointer;
       border-radius: 10px;
+    }
+    span {
+      width: 100px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
-  .container {
-    z-index: 0;
-    position: relative;
+  .all-container {
+    height: 620px;
+    width: 620px;
 
-    .list {
-      position: absolute;
-      font-size: 55px;
-      font-weight: bold;
-      transition-property: transform;
+    .background {
+      box-sizing: content-box;
+      flex: 0 0 600px;
+      background-color: #bbada0;
+      display: inline-flex;
+      flex-wrap: wrap;
+      padding: 10px;
+      justify-content: space-between;
       border-radius: 10px;
-      // overflow: hidden;
-      transition: 100ms ease-in-out;
+      width: 600px;
+      position: absolute;
+      z-index: -1;
 
-      .inner {
-        width: 100%;
-        height: 100%;
-        color: #fff;
-        display: inline-flex;
-        align-items: center;
+      & > span {
+        background-color: #eee4da59;
+        margin: 10px;
+        width: 130px;
+        height: 130px;
         border-radius: 10px;
-        justify-content: center;
-        animation-fill-mode: backwards;
-        animation: appear 200ms ease-in-out;
+      }
+    }
+
+    .container {
+      z-index: 0;
+      padding: 10px;
+      width: 620px;
+      height: 620px;
+      display: inline-flex;
+      position: absolute;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      .list {
+        margin: 10px;
+        width: 130px;
+        height: 130px;
+        border-radius: 10px;
+        position: absolute;
+        font-size: 55px;
+        font-weight: bold;
+        transition-property: transform;
+        border-radius: 10px;
+        // overflow: hidden;
+        transition: 100ms ease-in-out;
+
+        .inner {
+          width: 100%;
+          height: 100%;
+          color: #fff;
+          display: inline-flex;
+          align-items: center;
+          border-radius: 10px;
+          justify-content: center;
+          animation-fill-mode: backwards;
+          animation: appear 200ms ease-in-out;
+        }
       }
     }
   }
