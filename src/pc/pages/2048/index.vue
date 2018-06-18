@@ -22,7 +22,6 @@
       <span 
         class="list"
         v-for="(e,i) in rocks" 
-        :data-item="JSON.stringify(e)"
         :key="i"
         :style="`
           transform: translate(${(e?e.x:0) * 150}px, ${(e?e.y:0) * 150}px);
@@ -38,11 +37,11 @@
         </span>
       </span>
     </div>
-    <div class="show">
+    <!-- <div class="show">
       <p v-for="(e,i) in rocks" :key="i">
         {{JSON.stringify(e)}}
       </p>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -60,17 +59,17 @@ export default {
     return {
       // 存储数字
       rocks: [
-        null,
-        null,
-        null,
-        null,
-        { x: 3, y: 1, num: 2, id: 10, color: "#eee4da" },
-        { x: 3, y: 2, num: 2, id: 1, color: "#eee4da" },
-        { x: 3, y: 3, num: 4, id: 3, color: "#ede0c8" },
-        { x: 2, y: 1, num: 2, id: 8, color: "#eee4da" },
-        { x: 1, y: 1, num: 2, id: 6, color: "#eee4da" },
-        { x: 0, y: 1, num: 2, id: 11, color: "#eee4da" },
-        { x: 0, y: 3, num: 4, id: 9, color: "#ede0c8" },
+        // null,
+        // null,
+        // null,
+        // null,
+        // { x: 3, y: 1, num: 2, id: 10, color: "#eee4da", canCalc:true },
+        // { x: 3, y: 2, num: 2, id: 1, color: "#eee4da", canCalc:true },
+        // { x: 3, y: 3, num: 4, id: 3, color: "#ede0c8", canCalc:true },
+        // { x: 2, y: 1, num: 2, id: 8, color: "#eee4da", canCalc:true },
+        // { x: 1, y: 1, num: 2, id: 6, color: "#eee4da", canCalc:true },
+        // { x: 0, y: 1, num: 2, id: 11, color: "#eee4da", canCalc:true },
+        // { x: 0, y: 3, num: 4, id: 9, color: "#ede0c8", canCalc:true },
       ],
       color: {
         2: "#eee4da",
@@ -89,8 +88,8 @@ export default {
   },
   mounted() {
     window.app = this;
-    // this.add();
-    // this.add();
+    this.add();
+    this.add();
     document.addEventListener("keydown", e => {
       if (e.key === "ArrowRight") {
         this.turn('right');
@@ -193,8 +192,9 @@ export default {
         }
       }
     },
-    // 右移
+    // 移动
     turn(direct) {
+      this.rocks.forEach(e => e&&(e.canCalc = true));
       Promise.all(
         this.handleDirect(direct).handleArr(this.rocks)
           // 将他们移到最右
@@ -217,9 +217,11 @@ export default {
         let next = this.isExist(this.handleDirect(direct).next(e));
         if (next && next.num !== e.num) {
           resolve(false);
-        } else if (next && next.num === e.num) {
+        } else if (next && next.canCalc && next.num === e.num) {
+          // 3个条件，不为null，
           this.handleDirect(direct).handleMove(e)
           e.num*=2;
+          e.canCalc = false;
           e.color=this.color[e.num]
           const dom = document.querySelector(`#r${e.id}`)
           dom.animate([
