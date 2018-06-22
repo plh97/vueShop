@@ -30,6 +30,7 @@
           v-for="(e,i) in rocks" 
           :key="i"
           :style="`
+            zIndex: ${e?e.num:0};
             transform: translate(${cssTransition(e)});
             display: ${e?'':'none'}
           `"
@@ -130,8 +131,10 @@ export default {
     },
     init(){
       this.rocks = [
-        {x:0,y:0,num: 2,color: "#eee4da" },
-        {x:3,y:0,num: 2,color: "#eee4da" },
+        {x:0,y:0,num: 2,color: "#eee4da", id:'21' },
+        // {x:1,y:0,num: 4,color: "#ede0c8", id:'23' },
+        // {x:2,y:0,num: 2,color: "#eee4da", id:'20' },
+        {x:3,y:0,num: 2,color: "#eee4da", id:'19' },
       ];
       this.scort = 0;
       // this.add();
@@ -276,16 +279,13 @@ export default {
         } else if (next && next.canCalc && next.num === e.num) {
           // 3个条件，不为null，
           this.handleDirect(direct).handleMove(e)
-          e.num*=2;
+          next.num*=2;
           this.scort+=e.num;
-          e.canCalc = false;
-          e.color=this.color[e.num]
+          next.canCalc = false;
+          next.color=this.color[next.num]
           const dom = document.querySelector(`#r${e.id}`)
           const nextDom = document.querySelector(`#r${next.id}`)
-          dom.animate([
-            { transform: 'scale(1)' }, 
-            { transform: 'scale(1)' }, 
-            { transform: 'scale(1)' }, 
+          nextDom.animate([
             { transform: 'scale(0.95)' }, 
             { transform: 'scale(1.3)' }, 
             { transform: 'scale(1.03)' }, 
@@ -293,23 +293,14 @@ export default {
           ], { 
             duration: 200,
           });
-          // dom.style
-          let html = `<span class="list  bbbbbb" id="vurlt" style="transform: ${this.cssTransition(next)}">
-              <span data-v-9023cbfa="" id="rundefined" class="inner" style="background-color: ${next.color};">
-                ${next.num}
-              </span>
-            </span>`;
-          document.querySelector('.container').insertAdjacentHTML( 'beforeend', html );
+          await dely(200);
+          this.rocks.splice(this.getIndex(e.id), 1, null);
 
-          this.rocks.splice(this.getIndex(next.id), 1, null);
-
-          setTimeout(() => {
-            document.querySelector('#vurlt').remove();
-          }, 100);
           resolve(true);
         } else if (next === undefined) {
           if (this.handleDirect(direct).handleCondition(e)) {
             this.handleDirect(direct).handleMove(e)
+            await dely(0);
             this.calcAxis({ e,direct });
           }
           resolve(true);
