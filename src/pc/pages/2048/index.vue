@@ -44,17 +44,11 @@
         </span>
       </div>
     </div>
-    <!-- <div class="show">
-      <p v-for="(e,i) in rocks" :key="i">
-        {{JSON.stringify(e)}}
-      </p>
-    </div> -->
   </div>
 </template>
 
 <script>
 // import $ from '@pengliheng/jquery'
-// transform: translate();
 const by = name => (o, p) => {
   const a = o[name];
   const b = p[name];
@@ -66,7 +60,8 @@ export default {
   data() {
     return {
       scort:0,
-      rocks: [],
+      rocks: [
+      ],
       color: {
         2: "#eee4da",
         4: "#ede0c8",
@@ -99,7 +94,6 @@ export default {
     });
     document.addEventListener('touchstart',(start)=>{
       const moveFunc = (move) => {
-        console.log(move);
         move && move.preventDefault();
         const dx = move.touches[0].clientX -  start.touches[0].clientX;
         const dy = move.touches[0].clientY -  start.touches[0].clientY;
@@ -135,10 +129,13 @@ export default {
       }
     },
     init(){
-      this.rocks = [];
+      this.rocks = [
+        {x:0,y:0,num: 2,color: "#eee4da" },
+        {x:3,y:0,num: 2,color: "#eee4da" },
+      ];
       this.scort = 0;
-      this.add();
-      this.add();
+      // this.add();
+      // this.add();
     },
     random24() {
       return ~~(Math.random() * 2) * 2 + 2;
@@ -284,20 +281,31 @@ export default {
           e.canCalc = false;
           e.color=this.color[e.num]
           const dom = document.querySelector(`#r${e.id}`)
+          const nextDom = document.querySelector(`#r${next.id}`)
           dom.animate([
             { transform: 'scale(1)' }, 
             { transform: 'scale(1)' }, 
             { transform: 'scale(1)' }, 
-            { transform: 'scale(1)' }, 
             { transform: 'scale(0.95)' }, 
-            { transform: 'scale(1.1)' }, 
+            { transform: 'scale(1.3)' }, 
             { transform: 'scale(1.03)' }, 
             { transform: 'scale(1)' } 
           ], { 
             duration: 200,
           });
           // dom.style
+          let html = `<span class="list  bbbbbb" id="vurlt" style="transform: ${this.cssTransition(next)}">
+              <span data-v-9023cbfa="" id="rundefined" class="inner" style="background-color: ${next.color};">
+                ${next.num}
+              </span>
+            </span>`;
+          document.querySelector('.container').insertAdjacentHTML( 'beforeend', html );
+
           this.rocks.splice(this.getIndex(next.id), 1, null);
+
+          setTimeout(() => {
+            document.querySelector('#vurlt').remove();
+          }, 100);
           resolve(true);
         } else if (next === undefined) {
           if (this.handleDirect(direct).handleCondition(e)) {
@@ -312,7 +320,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .show {
   position: fixed;
   bottom: 50vh;
@@ -397,6 +405,13 @@ body {
       position: absolute;
       justify-content: flex-start;
       align-items: flex-start;
+      -webkit-touch-callout: none;
+      -ms-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -ms-touch-action: none;
+      touch-action: none;
 
       .list {
         margin: 10px;
