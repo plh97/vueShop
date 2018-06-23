@@ -50,6 +50,9 @@
 
 <script>
 // import $ from '@pengliheng/jquery'
+import VConsole from "Vconsole";
+var vConsole = new VConsole();
+
 const by = name => (o, p) => {
   const a = o[name];
   const b = p[name];
@@ -117,6 +120,7 @@ export default {
         document.removeEventListener('touchmove',moveFunc)
       })
     })
+
   },
   methods: {
     isMobile() {
@@ -126,19 +130,19 @@ export default {
       if(this.isMobile()){
         return `${(e?e.x:0) * 23.5}vw, ${(e?e.y:0) * 23.5}vw`
       }else {
-        return `${(e?e.x:0) * 150}px, ${(e?e.y:0) * 150}px`
+        return `${(e?e.x:0) * 120}px, ${(e?e.y:0) * 120}px`
       }
     },
     init(){
       this.rocks = [
-        {x:0,y:0,num: 2,color: "#eee4da", id:'21' },
+        // {x:0,y:0,num: 2,color: "#eee4da", id:'21' },
         // {x:1,y:0,num: 4,color: "#ede0c8", id:'23' },
         // {x:2,y:0,num: 2,color: "#eee4da", id:'20' },
-        {x:3,y:0,num: 2,color: "#eee4da", id:'19' },
+        // {x:3,y:0,num: 2,color: "#eee4da", id:'19' },
       ];
       this.scort = 0;
-      // this.add();
-      // this.add();
+      this.add();
+      this.add();
     },
     random24() {
       return ~~(Math.random() * 2) * 2 + 2;
@@ -267,7 +271,7 @@ export default {
             alert('游戏结束！')
             // this.init();
           }
-        }, 0);
+        }, 10);
       });
     },
     // 处理移动距离的函数
@@ -362,36 +366,37 @@ body {
   }
 
   .all-container {
-    height: 620px;
-    width: 620px;
+    height: 500px;
+    width: 500px;
 
     .background {
       box-sizing: content-box;
-      flex: 0 0 600px;
+      // flex: 0 0 480px;
       background-color: #bbada0;
       display: inline-flex;
       flex-wrap: wrap;
       padding: 10px;
       justify-content: space-between;
       border-radius: 10px;
-      width: 600px;
+      width: 480px;
       position: absolute;
-      z-index: -1;
+      z-index: 0;
 
       & > span {
-        background-color: #eee4da59;
+        background-color: rgba(238,228,218,0.35);
         margin: 10px;
-        width: 130px;
-        height: 130px;
+        width: 100px;
+        height: 100px;
         border-radius: 10px;
+        z-index: 1;
       }
     }
 
     .container {
       z-index: 0;
       padding: 10px;
-      width: 620px;
-      height: 620px;
+      width: 480px;
+      height: 480px;
       display: inline-flex;
       position: absolute;
       justify-content: flex-start;
@@ -406,15 +411,14 @@ body {
 
       .list {
         margin: 10px;
-        width: 130px;
-        height: 130px;
+        width: 100px;
+        height: 100px;
         border-radius: 10px;
         position: absolute;
-        font-size: 55px;
+        font-size: 50px;
         font-weight: bold;
         transition-property: transform;
         border-radius: 10px;
-        // overflow: hidden;
         transition: 100ms ease-in-out;
 
         .inner {
