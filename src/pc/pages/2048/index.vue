@@ -267,10 +267,7 @@ export default {
           console.log("没有移动，不用添加");
         }
         setTimeout(() => {
-          if(this.isGameOver()){
-            alert('游戏结束！')
-            // this.init();
-          }
+
         }, 10);
       });
     },
@@ -299,7 +296,12 @@ export default {
           });
           await dely(200);
           this.rocks.splice(this.getIndex(e.id), 1, null);
-
+          console.log('123');
+          await dely(0);
+          if(this.isGameOver()){
+            alert('游戏结束！')
+            // this.init();
+          }
           resolve(true);
         } else if (next === undefined) {
           if (this.handleDirect(direct).handleCondition(e)) {

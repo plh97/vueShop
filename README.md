@@ -18,6 +18,7 @@
 - [x] [粒子时钟](https://work.pipk.top/clock)(pc端观看)
 - [x] [贪吃蛇小游戏](https://work.pipk.top/snake)(pc端观看)
 - [x] [2048](https://work.pipk.top/2048)
+- [x] [围住神经猫](https://work.pipk.top/cat)
 
 
 
