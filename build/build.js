@@ -37,6 +37,8 @@ app
           ctx.body = '<h1>请在pc端浏览该页面！</h1>'
         } else if (ctx.url === '/2048'){
           await koaSend(ctx, 'index.html', { root: `./dist/pc` });
+        } else if (ctx.url === '/cat'){
+          await koaSend(ctx, 'index.html', { root: `./dist/pc` });
         } else {
           await koaSend(ctx, 'index.html', { root: `./dist/mobile` });
         }

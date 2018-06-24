@@ -86,7 +86,6 @@ window.times = 0;
 
 class Path {
   constructor(){
-    this.root = null;
     this.pool = []
   }
   isStepInPathRepeat({
