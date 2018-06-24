@@ -71,11 +71,10 @@ class Stack {
   findNext({x,y,z}) {
     const canGo = this.findAround({x,y,z})
       .filter(e=>this.isExist(e) ? !this.isExist(e).fill: true)
-    if(canGo.filter(e=>e.x>4||e.y>4||e.z>4).length>0){
-      alert('神经🐱跑了 ')
-      return canGo
+    if(canGo.filter(e=>e.x>5||e.y>5||e.z>5).length>0){
+      return '神经🐱跑了'
     } else if (canGo.length===0) {
-      return '神经猫被围住了';
+      return `神经猫被围住了`;
     } else {
       // 只有一条路可走，不需要计算
       // 多条路可选，导出数组，交给path类来计算。
@@ -169,8 +168,12 @@ export default {
       path.findPath({coord:this.cat,pathStack:[this.cat]});
       const pool = path.pool;
       const nextStep = stack.findNext(this.cat);
+      this.step++;
       if(typeof nextStep === 'string') {
-        alert(nextStep);
+        // alert(nextStep);
+        if(nextStep === '神经猫被围住了'){
+          alert(`你一共花了${this.step}步数，超过了全国${((this.step/30>0) ? (this.step/30) : 5 ).toFixed(2) * 100}%的人`)
+        }
         return
       }else if( pool.length === 0){
         console.log('crazy')
@@ -186,7 +189,13 @@ export default {
           }, 1000);
         })
       }
-      this.step++;
+      if(this.cat.x ===5){
+        alert('猫跑了')
+      }else if(this.cat.y === 5){
+        alert('猫跑了')
+      }else if(this.cat.z === 5){
+        alert('猫跑了')
+      }
     },
     init() {
       this.step = 0;
