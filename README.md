@@ -8,12 +8,10 @@
 为了展示作品
 
 ### 作品
-- [x] [vue版本购物商城](https://work.pipk.top)（请在移动端下访问）
 - [x] [酒瓶定制](https://work.pipk.top/canvas)(pc/移动兼容)
 - [x] [聊天室](https://chat.pipk.top)
 - [x] [个人博客](https://pipk.top)
 - [x] [github 数据生成报告](https://github.com/pengliheng/github-report)
-- [x] [某司官网](https://work.pipk.top/daocheng)(pc观看)
 - [x] [UI组件](https://github.com/pengliheng/component)
 - [x] [粒子时钟](https://work.pipk.top/clock)(pc端观看)
 - [x] [贪吃蛇小游戏](https://work.pipk.top/snake)(pc端观看)
@@ -45,18 +43,14 @@
 ├─src                    // 源码存放目录
 │  ├─assets              // 静态文件
 │  │  ├─images           // 图片
-│  │  └─template         // 特定模板
-│  │      ├─fst
-│  │      ├─judou
-│  │      └─lufa
 │  ├─mobile               // 移动端源码入口
 │  │  ├─component         // 公共组件
 │  │  │  ├─sell
 │  │  │  ├─set
 │  │  │  └─usercenter
 │  │  ├─pages             // 各自项目特有组件
-│  │  │  ├─fst
-│  │  │  └─lufa
+│  │  │  ├─page1
+│  │  │  └─page2
 │  │  ├─router            // 路由存放目录
 │  │  ├─store             // vuex存放目录
 │  │  └─index.js          // 入口文件
